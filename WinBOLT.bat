@@ -42,27 +42,44 @@ REM ############################################################################
 
 @echo off
 title (- WinBOLT v1.0 - Maintenance Automation Tool - GitHub.com/OnlineLabs -)
+color 6
 md C:\WinBOLT\ >nul
 cls
-echo Preparing system requirements........
-robocopy EEK C:\WinBOLT\ >nul
-cls
+color 5
 xcopy /q /y monthly.bat C:\WinBOLT\ >nul
 cls
+color 5
 xcopy /q /y rename.vbs C:\WinBOLT\ >nul
+cls
+color 5
+echo Preparing system requirements........
+robocopy EEK C:\WinBOLT\EEK\ /MIR /R:1000 >nul
+cls
+goto recopy
+
+:recopy
 color 6
+md C:\WinBOLT\ >nul
 cls
-echo.
-REM @powershell -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('EEK.zip', 'C:\WinBOLT\'); }"
+color 5
+xcopy /q /y monthly.bat C:\WinBOLT\ >nul
 cls
+color 5
+xcopy /q /y rename.vbs C:\WinBOLT\ >nul
+cls
+color 5
+echo Preparing system requirements........
+robocopy EEK C:\WinBOLT\EEK\ /MIR /R:1000 >nul
+cls
+goto Verification
 
 :Verification
 cls
 
 echo.
-echo  #############################################
-echo  -Assure the following before running WinBOLT-
-echo  #############################################
+echo  ###############################################
+echo  # Assure the following before running WinBOLT #
+echo  ###############################################
 echo  [X]  Full Local Administrator rights
 echo  [X]  .NET Framework 3.5 and above
 echo  [X]  PowerShell 2.0 and above
