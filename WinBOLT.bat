@@ -39,6 +39,7 @@ REM **v1.0: extracts all files to TEMP and moves to C:\WinBOLT\
 REM **v1.0: revised code, audited all entries and uploaded to github.com/OnlineLabs
 REM **v1.0: Added Windows Updates to Option #2 and Option#7
 REM **v1.0: Fixed WinBOLT hang, verficiation check added before ROBOCOPY.
+REM **v1.0: Added SSD defrag bypass for Option #6 and #7.
 REM ###################################################################################################################
 REM ###################################################################################################################
 
@@ -598,7 +599,24 @@ goto menu
 
 :6
 cls
+color a
+echo.
+echo Are you running an SSD?
+echo Solid State Drives should NOT be defragged.
+echo.
 
+set /p op=Enter (Y or N):
+if %op%==N goto 6no
+if %op%==No goto 6no
+if %op%==no goto 6no
+if %op%==n goto 6no
+if %op%==Y goto 6yes
+if %op%==Yes goto 6yes
+if %op%==yes goto 6yes
+if %op%==y goto 6yes
+goto exit
+
+:6no
 echo.
 echo.
 echo       Defraging, File System Check, File System Integrity Check Entire System, Please Wait!
@@ -610,6 +628,19 @@ echo y|chkdsk /f /r C:
 defrag c: /h /x
 REM SHUTDOWN TIME 10MINS
 shutdown /r /t 600
+
+:6yes
+echo.
+echo.
+echo      Skipping Defraging but running File System Check and File System Integrity Check, Please Wait!
+echo.
+echo.
+echo.
+sfc /scannow
+echo y|chkdsk /f /r C:
+REM SHUTDOWN TIME 10MINS
+shutdown /r /t 600
+
 
 cls
 echo.
@@ -630,7 +661,24 @@ goto menu
 
 :7
 cls
+color a
+echo.
+echo Are you running an SSD?
+echo Solid State Drives should NOT be defragged.
+echo.
 
+set /p op=Enter (Y or N):
+if %op%==N goto 7no
+if %op%==No goto 7no
+if %op%==no goto 7no
+if %op%==n goto 7no
+if %op%==Y goto 7yes
+if %op%==Yes goto 7yes
+if %op%==yes goto 7yes
+if %op%==y goto 7yes
+goto exit
+
+:7no
 echo.
 echo.
 echo       Running EVERYTHING, Please Wait!
@@ -708,6 +756,103 @@ Set output=File Scan_%date:~-4,4%%date:~-10,2%%date:~-7,2%_%hr%%time:~3,2%%time:
 sfc /scannow
 echo y|chkdsk /f /r C:
 defrag c: /h /x
+REM SHUTDOWN TIME 10MINS
+shutdown /r /t 600
+
+cls
+echo.
+echo COMPLETED - System will reboot in 10mins to complete maintenance.
+echo.
+set /p op=Enter Y to cancel IMPORTANT reboot:
+if %op%==Y  goto CancelReboot
+goto menu
+
+:CancelReboot
+cls
+shutdown /a
+echo.
+echo You have canceled the IMPORTANT reboot. Do it manually SOON!
+echo.
+timeout /t 6 >nul
+goto menu
+
+:7yes
+echo.
+echo.
+echo       Running EVERYTHING, Please Wait!
+echo.
+echo   This does NOT incude Custom Applications!
+echo.
+echo.
+echo.
+cd %windir%\system32\
+wuauclt.exe /detectnow /updatenow
+@powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+echo.
+choco update -y
+choco install ccleaner -y
+REM REGISTRY ENTRY DISABLES UAC AND SUPRESSES ALL NOTIFICATIONS (WILL TAKE EFFECT UPON REBOOT; DOES NOT FORCE REBOOT)
+REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
+REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
+cd     C:\Program Files\CCleaner\
+(echo  [Options]) > ccleaner.ini
+(echo  UpdateKey=01/19/2015 01:14:08 PM) >> ccleaner.ini
+(echo  WipeFreeSpaceDrives=C:\) >> ccleaner.ini
+(echo  CookiesToSave=) >> ccleaner.ini
+(echo  RunICS=0) >> ccleaner.ini
+(echo  CheckTrialOffer=0) >> ccleaner.ini
+echo   (App)Cookies=False >> ccleaner.ini
+echo   (App)Recently Typed URLs=False >> ccleaner.ini
+echo   (App)Chkdsk File Fragments=False >> ccleaner.ini
+echo   (App)Windows Error Reporting=True >> ccleaner.ini
+echo   (App)Windows Log Files=True >> ccleaner.ini
+echo   (App)DNS Cache=True >> ccleaner.ini
+echo   (App)Font Cache=True >> ccleaner.ini
+echo   (App)Start Menu Shortcuts=False >> ccleaner.ini
+echo   (App)Windows Event Logs=False >> ccleaner.ini
+echo   (App)Old Prefetch data=True >> ccleaner.ini
+echo   (App)Tray Notifications Cache=False >> ccleaner.ini
+echo   (App)Mozilla - Cookies=False >> ccleaner.ini
+echo   (App)Mozilla - Internet History=False >> ccleaner.ini
+echo   (App)Google Chrome - Cookies=False >> ccleaner.ini
+echo   (App)Google Chrome - Internet History=False >> ccleaner.ini
+echo   (App)Adobe Acrobat XI=False >> ccleaner.ini
+echo   (App)Evernote=False >> ccleaner.ini
+echo   (App)MS Office Picture Manager=True >> ccleaner.ini
+echo   (App)Virtual Clone Drive=True >> ccleaner.ini
+echo   (App)FileZilla=False >> ccleaner.ini
+echo   (App)LogMeIn=False >> ccleaner.ini
+echo   (App)Skype=False >> ccleaner.ini
+echo   (App)uTorrent=False >> ccleaner.ini
+echo   (App)Sublime Text=False >> ccleaner.ini
+echo   (App)TeamViewer=False >> ccleaner.ini
+echo   (App)Windows Defender=False >> ccleaner.ini
+echo   (App)WinRAR=False >> ccleaner.ini
+echo   (App)Remote Desktop=False >> ccleaner.ini
+(echo  AnalyzerTypes=) >> ccleaner.ini
+(echo  SystemAnalyzerDrives=C:\) >> ccleaner.ini
+(echo  FinderInclude1=) >> ccleaner.ini
+(echo  FinderIncludeStates=1) >> ccleaner.ini
+(echo  UpdateCheck=0) >> ccleaner.ini
+(echo  Monitoring=0) >> ccleaner.ini
+(echo  SystemMonitoring=0) >> ccleaner.ini
+(echo  DelayRB=1) >> ccleaner.ini
+(echo  HideWarnings=1) >> ccleaner.ini
+(echo  AutoClose=1) >> ccleaner.ini
+(echo  BackupPrompt=0) >> ccleaner.ini
+REM MONTHLY MAINTENANCE - 30TH AND 15TH OF MONTH
+echo Y|SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.bat"
+echo.
+cd C:\Program Files\CCleaner\
+ccleaner.exe /clean
+pushd "C:\WinBOLT\EEK\"
+a2cmd.exe /update
+set hr=%time:~0,2%
+if "%hr:~0,1%" equ " " set hr=0%hr:~1,1%
+Set output=File Scan_%date:~-4,4%%date:~-10,2%%date:~-7,2%_%hr%%time:~3,2%%time:~6,2%.txt
+"C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\" /d
+sfc /scannow
+echo y|chkdsk /f /r C:
 REM SHUTDOWN TIME 10MINS
 shutdown /r /t 600
 
