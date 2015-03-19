@@ -37,12 +37,19 @@ REM **v.04: Added autoscheduler reboot to FSC.
 REM **v.04: Merged emsisoft.bat with monthly.bat, removed emsisoft_VB.vbs and emsisoft.bat
 REM **v1.0: extracts all files to TEMP and moves to C:\WinBOLT\
 REM **v1.0: revised code, audited all entries and uploaded to github.com/OnlineLabs
+REM **v1.0: Added Windows Updates to Option #2 and Option#7
+REM **v1.0: Fixed WinBOLT hang, verficiation check added before ROBOCOPY.
 REM ###################################################################################################################
 REM ###################################################################################################################
 
 @echo off
 title (- WinBOLT v1.0 - Maintenance Automation Tool - GitHub.com/OnlineLabs -)
-color 6
+REM Starting Windows Update as a time advantage for Option #2.
+cd %windir%\system32\
+wuauclt.exe /detectnow
+IF EXIST C:\WinBOLT\EEK goto Verification
+cls
+color 5
 md C:\WinBOLT\ >nul
 cls
 color 5
@@ -52,6 +59,7 @@ color 5
 xcopy /q /y rename.vbs C:\WinBOLT\ >nul
 cls
 color 5
+echo.
 echo Preparing system requirements........
 robocopy EEK C:\WinBOLT\EEK\ /MIR /R:1000 >nul
 cls
@@ -122,7 +130,7 @@ echo    # WinBOLT v1.0 - Maintenance Automation Tool - GitHub.com/OnlineLabs #
 echo    ######################################################################
 echo.
 echo     1)  Install Chocolatey
-echo     2)  Update Chocolatey Apps
+echo     2)  Run Windows Update and Chocolatey Updates
 echo     3)  Install Custom Applications (Slow/Infected/New OS)
 echo     4)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
 echo     5)  WinBOLT Tune Up - Delete Temp, Run CCLeaner, EEK update/scan/removal.
@@ -188,6 +196,9 @@ echo.
 echo.
 echo.
 choco update -y >nul
+cd %windir%\system32\
+wuauclt.exe /detectnow /updatenow
+
 
 cls
 echo COMPLETED - Update Chocolatey Apps
@@ -628,6 +639,8 @@ echo   This does NOT incude Custom Applications!
 echo.
 echo.
 echo.
+cd %windir%\system32\
+wuauclt.exe /detectnow /updatenow
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 echo.
 choco update -y
