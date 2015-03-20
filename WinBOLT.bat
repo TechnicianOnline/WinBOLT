@@ -946,15 +946,16 @@ echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
 echo RAM - Physical DIMM Slot Information:
-systeminfo | findstr /C:"Total Physical Memory"
-echo.
+echo ------------------------------------
 wmic memorychip get Manufacturer, PartNumber, SerialNumber
+systeminfo | findstr /C:"Total Physical Memory"
 echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
-echo Hard Drive Disk Interface - Name -  S.M.A.R.T Status
+echo Hard Drive Disk Interface - Name -  S.M.A.R.T Status:
+echo ----------------------------------------------------
 wmic DISKDRIVE get InterfaceType, Caption, Size, Status
 echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -962,7 +963,7 @@ echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
 echo Graphical Devices - Driver Version
-echo.
+echo ----------------------------------
 wmic PATH Win32_VideoController GET Description,DriverVersion | findstr /V LogMeIn
 echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -971,6 +972,7 @@ echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
 echo Network Interface Card Information:
 echo [TRUE=Active NIC] [FALSE=Inactive NIC]
+echo --------------------------------------
 wmic NIC get Description,MACAddress,NetEnabled | findstr "TRUE"
 wmic NIC get Description,MACAddress,NetEnabled | findstr "FALSE"
 echo.
