@@ -914,9 +914,11 @@ echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
 echo Full BIOS Information:
+echo ----------------------
 wmic BIOS get Manufacturer,Name,SMBIOSBIOSVersion,Version
 echo.
 echo Motherboard Information:
+echo ------------------------
 wmic baseboard get product, Manufacturer, version, serialnumber
 echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -924,11 +926,12 @@ echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
 echo Processor Chipset Information:
+echo ------------------------------
 wmic CPU get Name,NumberOfCores
-echo.
 wmic cpu get CurrentClockSpeed,MaxClockSpeed
 echo.
 echo Processor physical bit architecture:
+echo ------------------------------------
 wmic cpu get AddressWidth | findstr /V AddressWidth
 echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -936,9 +939,11 @@ echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
 echo Windows Operating System Information:
+echo -------------------------------------
 wmic OS get Caption,CSDVersion,OSArchitecture,Version
 echo.
 echo Windows Installation Date:
+echo --------------------------
 systeminfo | findstr /C:"Original"
 echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -981,6 +986,7 @@ echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
 echo Dell Service Tag:
+echo -----------------
 wmic bios get serialnumber
 echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
