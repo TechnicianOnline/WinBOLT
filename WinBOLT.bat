@@ -9,7 +9,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-REM LAST UPDATED 03.18.2015
+REM LAST UPDATED 03.20.2015
 REM Current Version 1.0
 REM ###################################################################################################################
 REM ######################################## ( - Change Log and Version - ) ###########################################
@@ -40,11 +40,12 @@ REM **v1.0: revised code, audited all entries and uploaded to github.com/OnlineL
 REM **v1.0: Added Windows Updates to Option #2 and Option#7
 REM **v1.0: Fixed WinBOLT hang, verficiation check added before ROBOCOPY.
 REM **v1.0: Added SSD defrag bypass for Option #6 and #7.
+REM **v1.0: Major additions to hardware info Option #9
 REM ###################################################################################################################
 REM ###################################################################################################################
 
 @echo off
-title (- WinBOLT v1.0 - Maintenance Automation Tool - GitHub.com/OnlineLabs -)
+title (- WinBOLTv1.0 - GitHub.com/OnlineLabs -)
 REM Starting Windows Update as a time advantage for Option #2.
 cd %windir%\system32\
 wuauclt.exe /detectnow
@@ -912,8 +913,30 @@ echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
-echo BIOS Version
-wmic bios get smbiosbiosversion
+echo Full BIOS Information:
+wmic BIOS get Manufacturer,Name,SMBIOSBIOSVersion,Version
+echo.
+echo Motherboard Information:
+wmic baseboard get product, Manufacturer, version, serialnumber
+echo.
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo ******************************************************************
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo.
+echo Processor Chipset Information:
+wmic CPU get Name,NumberOfCores
+echo.
+wmic cpu get CurrentClockSpeed,MaxClockSpeed
+echo.
+echo Processor physical bit architecture:
+wmic cpu get AddressWidth | findstr /V AddressWidth
+echo.
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo ******************************************************************
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo.
+echo Windows Operating System Information:
+wmic OS get Caption,CSDVersion,OSArchitecture,Version
 echo.
 echo Windows Installation Date:
 systeminfo | findstr /C:"Original"
@@ -922,17 +945,7 @@ echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
-wmic cpu get name | findstr "I"
-echo Hardware CPU bit architecture
-wmic cpu get AddressWidth | findstr /V AddressWidth
-echo Installed OS bit architecture
-wmic OS get OSArchitecture | findstr "b"
-echo.
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo.
-echo RAM - DIMM Slots
+echo RAM - Physical DIMM Slot Information:
 systeminfo | findstr /C:"Total Physical Memory"
 echo.
 wmic memorychip get Manufacturer, PartNumber, SerialNumber
@@ -941,8 +954,9 @@ echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
-echo HDD (S.M.A.R.T)
-WMIC DiskDrive GET Caption, Status
+echo Hard Drive Disk Interface - Name -  S.M.A.R.T Status
+wmic DISKDRIVE get InterfaceType, Caption, Size, Status
+echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -950,6 +964,23 @@ echo.
 echo Graphical Devices - Driver Version
 echo.
 wmic PATH Win32_VideoController GET Description,DriverVersion | findstr /V LogMeIn
+echo.
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo ******************************************************************
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo.
+echo Network Interface Card Information:
+echo [TRUE=Active NIC] [FALSE=Inactive NIC]
+wmic NIC get Description,MACAddress,NetEnabled | findstr "TRUE"
+wmic NIC get Description,MACAddress,NetEnabled | findstr "FALSE"
+echo.
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo ******************************************************************
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo.
+echo Dell Service Tag:
+wmic bios get serialnumber
+echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ******************************************************************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
