@@ -197,7 +197,8 @@ echo       Running Chocolatey Updates, Please Wait!
 echo.
 echo.
 echo.
-choco update -y >nul
+choco update -y
+choco update all -y
 cd %windir%\system32\
 wuauclt.exe /detectnow /updatenow
 
@@ -693,6 +694,7 @@ wuauclt.exe /detectnow /updatenow
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 echo.
 choco update -y
+choco update all -y
 choco install ccleaner -y
 REM REGISTRY ENTRY DISABLES UAC AND SUPRESSES ALL NOTIFICATIONS (WILL TAKE EFFECT UPON REBOOT; DOES NOT FORCE REBOOT)
 REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
@@ -791,6 +793,7 @@ wuauclt.exe /detectnow /updatenow
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 echo.
 choco update -y
+choco update all -y
 choco install ccleaner -y
 REM REGISTRY ENTRY DISABLES UAC AND SUPRESSES ALL NOTIFICATIONS (WILL TAKE EFFECT UPON REBOOT; DOES NOT FORCE REBOOT)
 REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
