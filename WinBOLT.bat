@@ -503,7 +503,6 @@ echo.
 echo       Installing Maintenance Script Autoschedule; Please Wait!
 echo.
 echo.
-echo.
 
 REM MONTHLY MAINTENANCE - 30TH AND 15TH OF MONTH
 echo Y|SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.bat"
@@ -581,10 +580,10 @@ cls
 echo.
 echo.
 echo.
-echo
 echo    ###############################################################
 echo    -Running DEEP EmsiSoft EEK scan, cancel anytime with (Ctr + C)-
 echo    ###############################################################
+echo.
 echo.
 echo.
 pushd "C:\WinBOLT\EEK\"
