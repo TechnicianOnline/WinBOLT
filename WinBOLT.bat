@@ -48,6 +48,7 @@ REM ############################################################################
 title (- WinBOLTv1.0 - GitHub.com/OnlineLabs -)
 REM Starting Windows Update as a time advantage for Option #2.
 IF EXIST C:\WinBOLT\EEK goto Verification
+	else (
 cls
 color 5
 md C:\WinBOLT\ >nul
@@ -64,7 +65,7 @@ echo Preparing system requirements........
 robocopy EEK C:\WinBOLT\EEK\ /MIR /R:1000 >nul
 cls
 goto recopy
-
+	)
 :recopy
 color 6
 md C:\WinBOLT\ >nul
