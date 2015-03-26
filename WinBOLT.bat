@@ -47,8 +47,6 @@ REM ############################################################################
 @echo off
 title (- WinBOLTv1.0 - GitHub.com/OnlineLabs -)
 REM Starting Windows Update as a time advantage for Option #2.
-cd %windir%\system32\
-wuauclt.exe /detectnow
 IF EXIST C:\WinBOLT\EEK goto Verification
 cls
 color 5
@@ -122,6 +120,8 @@ IF %ERRORLEVEL% EQU 0 (
 
 REM GREETING MENU
 :menu
+cd %windir%\system32\
+wuauclt.exe /detectnow
 cd C:\WinBOLT\
 color a
 cls
