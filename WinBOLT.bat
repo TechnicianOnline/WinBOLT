@@ -1008,6 +1008,8 @@ goto exit
 
 
 :10
+REM local backup script
+cls
 1>nul 2>nul md C:\WinBOLT\Backups
 1>nul 2>nul md C:\WinBOLT\Backups\Logs
 echo.
