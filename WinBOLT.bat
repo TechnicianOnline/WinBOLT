@@ -1109,7 +1109,8 @@ echo ---
 echo --------[Destination]-[%dest%]-
 echo ---
 echo .
-1>nul 2>nul timeout /t 10
+echo [Please wait, data transferring in the background. You will be alerted once finished.]
+1>nul 2>nul timeout /t 5
  
 echo Y|xcopy /S /E %source01% %dest%\Documents\ > %dest%\%profile%.log
 echo Y|xcopy /S /E %source02% %dest%\Contacts\ >> %dest%\%profile%.log
@@ -1153,7 +1154,61 @@ if %errorlevel%==1 (
 )
 del %tmp%\tmp.vbs
 timeout /t 10 >nul
-goto menu
+goto altmenu
+
+
+:altmenu
+REM Alternative Menu to alert users backups have been completed.
+cd %windir%\system32\
+wuauclt.exe /detectnow
+cd C:\WinBOLT\
+color a
+
+echo.
+echo    ######################################################################
+echo    # WinBOLT v1.0 - Maintenance Automation Tool - GitHub.com/OnlineLabs #
+echo    ######################################################################
+echo.
+echo     1)  Install Chocolatey
+echo     2)  Run Windows Update and Chocolatey Updates
+echo     3)  Install Custom Applications (Slow/Infected/New OS)
+echo     4)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
+echo     5)  WinBOLT Tune Up - Delete Temp, Run CCLeaner, EEK update/scan/removal.
+echo     6)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
+echo     7)  All Of Thee Above (Does NOT include Opt#3)
+echo     8)  Rename Computer Host Name
+echo     9)  Get Hardware Information
+echo    10)  Backup Local C:\ Drive (XP Not supported)
+echo.
+echo     X)  Exit
+echo.
+echo.
+echo.
+echo.
+echo.
+set /p op=I Select Number #
+if %op%==1  goto 1
+if %op%==2  goto 2
+if %op%==3  goto 3
+if %op%==4  goto 4
+if %op%==5  goto 5
+if %op%==6  goto 6
+if %op%==7  goto 7
+if %op%==8  goto 8
+if %op%==9  goto 9
+if %op%==10 goto 10
+if %op%==11 goto 11
+if %op%==12 goto 12
+if %op%==13 goto 13
+if %op%==14 goto 14
+if %op%==15 goto 15
+if %op%==16 goto 16
+if %op%==X goto exit
+if %op%==x goto exit
+if %op%==quit goto exit
+if %op%==Q goto exit
+if %op%==q goto exit
+goto exit
 
 
 
