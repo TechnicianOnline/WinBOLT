@@ -9,7 +9,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-REM LAST UPDATED 03.26.2015
+REM LAST UPDATED 04.13.2015
 REM Current Version 1.0
 REM ###################################################################################################################
 REM ######################################## ( - Change Log and Version - ) ###########################################
@@ -41,6 +41,7 @@ REM **v1.0: Added Windows Updates to Option #2 and Option#7
 REM **v1.0: Fixed WinBOLT hang, verficiation check added before ROBOCOPY.
 REM **v1.0: Added SSD defrag bypass for Option #6 and #7.
 REM **v1.0: Major additions to hardware info Option #9
+REM **v1.0: Added option #10 local machine backup
 REM ###################################################################################################################
 REM ###################################################################################################################
 
@@ -141,6 +142,7 @@ echo     6)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
 echo     7)  All Of Thee Above (Does NOT include Opt#3)
 echo     8)  Rename Computer Host Name
 echo     9)  Get Hardware Information
+echo    10)  Backup Local C:\ Drive (XP Not supported)
 echo.
 echo     X)  Exit
 echo.
@@ -364,7 +366,7 @@ timeout /t 1 >nul
 goto 3
 
 :#13
-choco instsall atom -y
+choco install atom -y
 cls
 echo COMPLETED
 timeout /t 1 >nul
@@ -1002,6 +1004,156 @@ if %op%==Y goto menu
 if %op%==Yes goto menu
 if %op%==yes goto menu
 if %op%==y goto menu
+goto exit
+
+
+:10
+1>nul 2>nul md C:\WinBOLT\Backups
+1>nul 2>nul md C:\WinBOLT\Backups\Logs
+echo.
+echo    ###############################################################
+echo    # WinBOLT v1.0 - Backup Local Machine - GitHub.com/OnlineLabs #
+echo    ###############################################################
+echo.
+echo Windows XP Not Supported
+echo.
+echo                    Example:   F:\USBdrive\BackupFolder\
+echo.
+echo.
+echo.
+set /p dest=Type Backup Directory: 
+IF EXIST %dest% (
+      goto scriptv
+  ) ELSE (
+      goto error01
+)
+
+:error01
+REM Output if directory is invalid.
+cls
+color 5
+echo Directory invalid or inaccessible, please navigate to verify path accessibility and try again.
+timeout /t 3 >nul
+goto 10
+
+:scriptv
+REM Output if directory is valid.
+REM script verifys if you have Windows XP or NEW versions.
+color a
+IF EXIST "%USERPROFILE%\Documents\" (
+		goto backupscriptraw
+  ) ELSE (
+		goto nosupported
+)
+
+:nosupported
+REM error page of not supported XP Machine
+cls
+echo.
+echo Windows XP not supported.
+echo.
+set /p op=Go back to menu? (Y or N)
+if %op%==Y  goto menu
+if %op%==Y goto menu
+if %op%==Yes goto menu
+if %op%==yes goto menu
+if %op%==y goto menu
+goto exit
+
+:backupscriptraw
+REM RAW DATA BACKUP OPTION FOR NEW
+cls
+
+SET "source01="%USERPROFILE%\Documents"\*.*"
+SET "source02="%USERPROFILE%\Contacts"\*.*"
+SET "source03="%USERPROFILE%\Desktop"\*.*"
+SET "source04="%USERPROFILE%\Downloads"\*.*"
+SET "source05="%USERPROFILE%\Favorites"\*.*"
+SET "source06="%USERPROFILE%\Links"\*.*"
+SET "source07="%USERPROFILE%\Music"\*.*"
+SET "source08="%USERPROFILE%\Pictures"\*.*"
+SET "source09="%USERPROFILE%\Videos"\*.*"
+SET "source09="%USERPROFILE%\AppData"\*.*"
+SET profile=%userdomain%_%computername%_%username%
+For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set xdate=%%a.%%b.%%c)
+For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
+
+1>nul 2>nul md %dest%\Documents\
+1>nul 2>nul md %dest%\Contacts\
+1>nul 2>nul md %dest%\Downloads\
+1>nul 2>nul md %dest%Favorites\
+1>nul 2>nul md %dest%\Links\
+1>nul 2>nul md %dest%\Music\
+1>nul 2>nul md %dest%\Pictures\
+1>nul 2>nul md %dest%\Videos\
+1>nul 2>nul md %dest%\AppData\
+
+echo .
+echo ---
+echo -------[Source Files]-
+echo ---
+echo .
+echo %source01%
+echo %source02%
+echo %source03%
+echo %source04%
+echo %source05%
+echo %source06%
+echo %source07%
+echo %source08%
+echo %source09%
+echo .
+echo ---
+echo --------[Destination]-[%dest%]-
+echo ---
+echo .
+1>nul 2>nul timeout /t 10
+ 
+echo Y|xcopy /S /E %source01% %dest%\Documents\ > %dest%\%profile%.log
+echo Y|xcopy /S /E %source02% %dest%\Contacts\ >> %dest%\%profile%.log
+echo Y|xcopy /S /E %source03% %dest%\Downloads\ >> %dest%\%profile%.log
+echo Y|xcopy /S /E %source04% %dest%Favorites\ >> %dest%\%profile%.log
+echo Y|xcopy /S /E %source05% %dest%\Links\ >> %dest%\%profile%.log
+echo Y|xcopy /S /E %source06% %dest%\Music\ >> %dest%\%profile%.log
+echo Y|xcopy /S /E %source07% %dest%\Pictures\ >> %dest%\%profile%.log
+echo Y|xcopy /S /E %source08% %dest%\Videos\ >> %dest%\%profile%.log
+echo Y|xcopy /S /E %source09% %dest%\AppData\ >> %dest%\%profile%.log
+
+echo. ##########################################################>> %dest%\%profile%.log
+echo. ##########################################################>> %dest%\%profile%.log
+echo. |time |find "current" >> %dest%\%profile%.log
+echo. |date |find "current" >> %dest%\%profile%.log
+echo %profile%>> %dest%\%profile%.log
+echo. ##########################################################>> %dest%\%profile%.log
+
+copy "%dest%\%profile%.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_%profile%_Backup.log"
+
+goto backupfinished
+
+:backupfinished
+REM Closing menu for finished backup
+cls
+echo.
+echo    ##########################################################
+echo    # Local Backup Completed - Please Check Logs for Details #
+echo    ##########################################################
+echo.
+echo.  Log Output Location: C:\WinBOLT\Backups\Logs
+echo.
+REM pop up script when finished
+echo set WshShell = WScript.CreateObject("WScript.Shell") > %tmp%\tmp.vbs
+echo WScript.Quit (WshShell.Popup( "WinBOLT has finished backing up your data." ,10 ,"WinBOLT Backup", 0)) >> %tmp%\tmp.vbs
+cscript /nologo %tmp%\tmp.vbs
+if %errorlevel%==1 (
+  echo WinBOLT Backup is completed, you will now return to the main menu.
+) else (
+  echo WinBOLT Backup is completed, you will now return to the main menu.
+)
+del %tmp%\tmp.vbs
+timeout /t 10 >nul
+goto menu
+
+
 
 :exit
 cls
