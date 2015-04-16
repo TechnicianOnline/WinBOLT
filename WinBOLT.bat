@@ -49,7 +49,7 @@ REM ############################################################################
 title (- WinBOLTv1.0 - GitHub.com/OnlineLabs -)
 REM Starting Windows Update as a time advantage for Option #2.
 IF EXIST C:\WinBOLT\EEK goto Verification
-	else (
+    else (
 cls
 color 5
 md C:\WinBOLT\ >nul
@@ -66,7 +66,7 @@ echo Preparing system requirements........
 robocopy EEK C:\WinBOLT\EEK\ /MIR /R:1000 >nul
 cls
 goto recopy
-	)
+    )
 :recopy
 color 6
 md C:\WinBOLT\ >nul
@@ -106,14 +106,14 @@ REM Self Admin Check
 :SelfAdminTest
 netstat -bno > NUL
 IF %ERRORLEVEL% EQU 0 (
-	cls
-	echo.
+    cls
+    echo.
     ECHO                    Administrator rights verified.
     timeout /t 2 >nul
     GOTO menu
 ) ELSE (
-	cls
-	echo.
+    cls
+    echo.
     ECHO                    You are NOT the Administrator. Closing.
     timeout /t 3 >nul
     EXIT /B 1
@@ -142,8 +142,8 @@ echo     6)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
 echo     7)  All Of Thee Above (Does NOT include Opt#3)
 echo     8)  Rename Computer Host Name
 echo     9)  Get Hardware Information
-echo    10)  Backup Local C:\ Drive (XP Not supported)
-echo.
+echo    10)  Backup User Account and Windows Serial Key (XP Not Supported)
+echo    11)  Show Windows Serial Key
 echo     X)  Exit
 echo.
 echo.
@@ -238,7 +238,7 @@ echo      15)  install RKill Portable
 echo       X)  Back to main menu
 echo       S)  Shows installed appliactions
 echo.
-echo 	To UNinstall appliactions enter "U" before the number - (example: U1)
+echo    To UNinstall appliactions enter "U" before the number - (example: U1)
 echo.
 set /p op=I Select Number #
 if %op%==1   goto #1
@@ -1012,6 +1012,7 @@ REM local backup script
 cls
 1>nul 2>nul md C:\WinBOLT\Backups
 1>nul 2>nul md C:\WinBOLT\Backups\Logs
+wink.vbs
 echo.
 echo    ###############################################################
 echo    # WinBOLT v1.0 - Backup Local Machine - GitHub.com/OnlineLabs #
@@ -1043,9 +1044,9 @@ REM Output if directory is valid.
 REM script verifys if you have Windows XP or NEW versions.
 color a
 IF EXIST "%USERPROFILE%\Documents\" (
-		goto backupscriptraw
+        goto backupscriptraw
   ) ELSE (
-		goto nosupported
+        goto nosupported
 )
 
 :nosupported
@@ -1141,7 +1142,7 @@ echo    ##########################################################
 echo    # Local Backup Completed - Please Check Logs for Details #
 echo    ##########################################################
 echo.
-echo.  Log Output Location: C:\WinBOLT\Backups\Logs
+echo.  Windows Key & Backup Log Output Location: C:\WinBOLT\Backups\Logs
 echo.
 REM pop up script when finished
 echo set WshShell = WScript.CreateObject("WScript.Shell") > %tmp%\tmp.vbs
@@ -1163,7 +1164,6 @@ cd %windir%\system32\
 wuauclt.exe /detectnow
 cd C:\WinBOLT\
 color a
-
 echo.
 echo    ######################################################################
 echo    # WinBOLT v1.0 - Maintenance Automation Tool - GitHub.com/OnlineLabs #
@@ -1210,7 +1210,33 @@ if %op%==Q goto exit
 if %op%==q goto exit
 goto exit
 
+:11
+color a
+cls
 
+
+echo.
+echo    #######################################################################
+echo    # WinBOLT v1.0 - Windows Serial Key Extractor - GitHub.com/OnlineLabs #
+echo    #######################################################################
+echo.
+echo.
+echo.
+echo Windows Serial Key Output:
+echo.
+echo     C:\WinBOLT\Backups\Logs\windows_serial_key_backup.log
+echo.
+echo.
+echo.
+echo.
+winkpop.vbs
+set /p op=Go back to menu? (Y or N)
+if %op%==Y  goto menu
+if %op%==Y goto menu
+if %op%==Yes goto menu
+if %op%==yes goto menu
+if %op%==y goto menu
+goto exit
 
 :exit
 cls
