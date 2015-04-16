@@ -3,7 +3,7 @@ DIM fso, NewsFile, WshShell
 Set WshShell = CreateObject("WScript.Shell")
 
 Set fso = CreateObject("Scripting.FileSystemObject")
-Set write2File = fso.CreateTextFile("C:\windows_serial_key_backup.log", True)
+Set write2File = fso.CreateTextFile("C:\WinBOLT\Backups\Logs\windows_serial_key_backup.log", True)
 write2File.WriteLine(ConvertToKey(WshShell.RegRead("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DigitalProductId")))
 write2File.Close
 
