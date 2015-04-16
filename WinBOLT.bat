@@ -9,7 +9,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-REM LAST UPDATED 04.13.2015
+REM LAST UPDATED 04.16.2015
 REM Current Version 1.0
 REM ###################################################################################################################
 REM ######################################## ( - Change Log and Version - ) ###########################################
@@ -41,7 +41,9 @@ REM **v1.0: Added Windows Updates to Option #2 and Option#7
 REM **v1.0: Fixed WinBOLT hang, verficiation check added before ROBOCOPY.
 REM **v1.0: Added SSD defrag bypass for Option #6 and #7.
 REM **v1.0: Major additions to hardware info Option #9
-REM **v1.0: Added option #10 local machine backup
+REM **v1.0: Added option #10 Backup User Account and Windows Serial Key
+REM **v1.0: Added option #11 Extract Windows Serial Key
+REM **v1.0: Added wink.vbs and winkpop.vbs
 REM ###################################################################################################################
 REM ###################################################################################################################
 
@@ -143,7 +145,7 @@ echo     7)  All Of Thee Above (Does NOT include Opt#3)
 echo     8)  Rename Computer Host Name
 echo     9)  Get Hardware Information
 echo    10)  Backup User Account and Windows Serial Key (XP Not Supported)
-echo    11)  Show Windows Serial Key
+echo    11)  Extract Windows Serial Key
 echo     X)  Exit
 echo.
 echo.
