@@ -9,7 +9,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-REM LAST UPDATED 04.16.2015
+REM LAST UPDATED 04.20.2015
 REM Current Version 1.0
 REM ###################################################################################################################
 REM ######################################## ( - Change Log and Version - ) ###########################################
@@ -1144,7 +1144,8 @@ echo    ##########################################################
 echo    # Local Backup Completed - Please Check Logs for Details #
 echo    ##########################################################
 echo.
-echo.  Windows Key & Backup Log Output Location: C:\WinBOLT\Backups\Logs
+echo  Windows Key Location: C:\WinBOLT\Backups\Logs\
+echo  Backup Location: %dest%
 echo.
 REM pop up script when finished
 echo set WshShell = WScript.CreateObject("WScript.Shell") > %tmp%\tmp.vbs
@@ -1165,7 +1166,7 @@ REM Alternative Menu to alert users backups have been completed.
 cd %windir%\system32\
 wuauclt.exe /detectnow
 cd C:\WinBOLT\
-color a
+color 70
 echo.
 echo    ######################################################################
 echo    # WinBOLT v1.0 - Maintenance Automation Tool - GitHub.com/OnlineLabs #
@@ -1183,9 +1184,6 @@ echo     9)  Get Hardware Information
 echo    10)  Backup Local C:\ Drive (XP Not supported)
 echo.
 echo     X)  Exit
-echo.
-echo.
-echo.
 echo.
 echo.
 set /p op=I Select Number #
