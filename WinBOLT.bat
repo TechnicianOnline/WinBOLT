@@ -9,7 +9,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-REM LAST UPDATED 04.20.2015
+REM LAST UPDATED 04.23.2015
 REM Current Version 1.0
 REM ###################################################################################################################
 REM ######################################## ( - Change Log and Version - ) ###########################################
@@ -44,25 +44,25 @@ REM **v1.0: Major additions to hardware info Option #9
 REM **v1.0: Added option #10 Backup User Account and Windows Serial Key
 REM **v1.0: Added option #11 Extract Windows Serial Key
 REM **v1.0: Added wink.vbs and winkpop.vbs
+REM **v1.0: Fixed Windows update in option #2 and #7, added winups.vbs
 REM ###################################################################################################################
 REM ###################################################################################################################
 
 @echo off
+color 5
 title (- WinBOLTv1.0 - GitHub.com/OnlineLabs -)
 REM Starting Windows Update as a time advantage for Option #2.
 IF EXIST C:\WinBOLT\EEK goto Verification
     else (
 cls
-color 5
-md C:\WinBOLT\ >nul
-cls
-color 5
-xcopy /q /y monthly.bat C:\WinBOLT\ >nul
-cls
-color 5
-xcopy /q /y rename.vbs C:\WinBOLT\ >nul
-cls
-color 5
+1>nul 2>nul md C:\WinBOLT\
+1>nul 2>nul xcopy /q /y monthly.bat C:\WinBOLT\
+1>nul 2>nul xcopy /q /y rename.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /q /y LICENSE C:\WinBOLT\
+1>nul 2>nul xcopy /q /y README.md C:\WinBOLT\
+1>nul 2>nul xcopy /q /y wink.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /q /y winkpop.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /q /y winups.vbs C:\WinBOLT\
 echo.
 echo Preparing system requirements........
 robocopy EEK C:\WinBOLT\EEK\ /MIR /R:1000 >nul
@@ -70,14 +70,15 @@ cls
 goto recopy
     )
 :recopy
-color 6
-md C:\WinBOLT\ >nul
 cls
-color 5
-xcopy /q /y monthly.bat C:\WinBOLT\ >nul
-cls
-color 5
-xcopy /q /y rename.vbs C:\WinBOLT\ >nul
+1>nul 2>nul md C:\WinBOLT\
+1>nul 2>nul xcopy /q /y monthly.bat C:\WinBOLT\
+1>nul 2>nul xcopy /q /y rename.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /q /y LICENSE C:\WinBOLT\
+1>nul 2>nul xcopy /q /y README.md C:\WinBOLT\
+1>nul 2>nul xcopy /q /y wink.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /q /y winkpop.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /q /y winups.vbs C:\WinBOLT\
 cls
 color 5
 echo Preparing system requirements........
@@ -124,8 +125,6 @@ IF %ERRORLEVEL% EQU 0 (
 
 REM GREETING MENU
 :menu
-cd %windir%\system32\
-wuauclt.exe /detectnow
 cd C:\WinBOLT\
 color a
 cls
@@ -198,18 +197,17 @@ cls
 
 echo.
 echo.
-echo       Running Chocolatey Updates, Please Wait!
+echo       Running Windows and Chocolatey Updates, Please Wait!
 echo.
 echo.
 echo.
 choco update -y
 choco update all -y
-cd %windir%\system32\
-wuauclt.exe /detectnow /updatenow
+Cscript.exe C:\WinBOLT\winups.vbs > C:\WinBOLT\windows_update.log
 
 
 cls
-echo COMPLETED - Update Chocolatey Apps
+echo COMPLETED - Update Windows and Chocolatey Apps
 timeout /t 3 >nul
 goto menu
 
@@ -693,8 +691,7 @@ echo   This does NOT incude Custom Applications!
 echo.
 echo.
 echo.
-cd %windir%\system32\
-wuauclt.exe /detectnow /updatenow
+Cscript.exe C:\WinBOLT\winups.vbs > C:\WinBOLT\windows_update.log
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 echo.
 choco update -y
@@ -792,8 +789,7 @@ echo   This does NOT incude Custom Applications!
 echo.
 echo.
 echo.
-cd %windir%\system32\
-wuauclt.exe /detectnow /updatenow
+Cscript.exe C:\WinBOLT\winups.vbs > C:\WinBOLT\windows_update.log
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 echo.
 choco update -y
@@ -1163,8 +1159,6 @@ goto altmenu
 
 :altmenu
 REM Alternative Menu to alert users backups have been completed.
-cd %windir%\system32\
-wuauclt.exe /detectnow
 cd C:\WinBOLT\
 color 70
 echo.
