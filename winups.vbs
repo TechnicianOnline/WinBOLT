@@ -36,7 +36,7 @@ For I = 0 to searchResult.Updates.Count-1
             " has a license agreement that must be accepted:"
             WScript.Echo update.EulaText
             WScript.Echo "Do you accept this license agreement? (Y/N)"
-            strInput = WScript.StdIn.Readline
+            strInput = "Y"
             WScript.Echo 
             If (strInput = "Y" or strInput = "y") Then
                 update.AcceptEula()
@@ -59,7 +59,7 @@ If updatesToDownload.Count = 0 Then
     WScript.Echo "All applicable updates were skipped."
     WScript.Quit
 End If
-    
+
 WScript.Echo vbCRLF & "Downloading updates..."
 
 Set downloader = updateSession.CreateUpdateDownloader() 
@@ -93,7 +93,7 @@ If rebootMayBeRequired = true Then
 End If
 
 WScript.Echo  vbCRLF & "Would you like to install updates now? (Y/N)"
-strInput = WScript.StdIn.Readline
+strInput = "Y"
 WScript.Echo 
 
 If (strInput = "Y" or strInput = "y") Then
@@ -101,7 +101,7 @@ If (strInput = "Y" or strInput = "y") Then
     Set installer = updateSession.CreateUpdateInstaller()
     installer.Updates = updatesToInstall
     Set installationResult = installer.Install()
- 
+
     'Output results of install
     WScript.Echo "Installation Result: " & _
     installationResult.ResultCode 
@@ -109,7 +109,7 @@ If (strInput = "Y" or strInput = "y") Then
     installationResult.RebootRequired & vbCRLF 
     WScript.Echo "Listing of updates installed " & _
     "and individual installation results:" 
- 
+
     For I = 0 to updatesToInstall.Count - 1
         WScript.Echo I + 1 & "> " & _
         updatesToInstall.Item(i).Title & _
