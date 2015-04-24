@@ -2,6 +2,7 @@
 choco update
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
+Cscript.exe C:\WinBOLT\winups.vbs > C:\WinBOLT\monthly_windows_update.log
 REM Switch to the command line scanner directory to avoid issues with DLL loading
 pushd "C:\WinBOLT\EEK\"
 a2cmd.exe /update
