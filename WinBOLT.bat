@@ -1010,6 +1010,7 @@ REM local backup script
 cls
 1>nul 2>nul md C:\WinBOLT\Backups
 1>nul 2>nul md C:\WinBOLT\Backups\Logs
+pushd "C:\WinBOLT\"
 wink.vbs
 echo.
 echo    ###############################################################
@@ -1205,6 +1206,7 @@ if %op%==q goto exit
 goto exit
 
 :11
+pushd "C:\WinBOLT\"
 color a
 cls
 
