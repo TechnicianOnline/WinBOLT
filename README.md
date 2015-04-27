@@ -30,30 +30,30 @@ Will force Windows to download/install all update definitions found without prom
 Will update Chocolatey NuGet and any installed applications through Chocolatey.
 Using this saves you lots of manual work by automating Windows Updates.
 Using this will allow you to install applications directly through Chocolatey Nuget and update them constantly.
-Using this with option #4 allows it to run each month, option #7 also covers option #2 and option #3.
+Using this with option #3 allows it to run each month, option #6 also covers option #2 and option #7.
 
-Option #3
-Will offer another menu to install applications as desired.
-Using this will allow a variety of tools at your fingertips to troubleshoot/setup a new/old computer.
-
-Options #4
+Options #3
 Will create a Windows Task to run C:\WinBOLT\monthly.bat each 30'th and 15'th of the month.
 Using this will allow handsfree maintenance on all the computers you want.
 monthly.bat will run Windows Updates, ccleaner and allow Emsisoft CLS to run in the background.
 
-Options #5
+Options #4
 Will run a basic Windows Tune up. Deleting temp files, running CCLeaner and Emsisoft CLS.
 Using this will allow you to quickly do basic maintenance quickly, without involving other options above or below.
 
-Options #6
+Options #5
 Will defragment the C:\ drive, run a System File Check for currupted Windows system files.
 Will scheduled File System Check on next reboot.
 Using this will really help maintain a Windows Operating System but is a very long proccess.
 Using this will ask for a reboot to complete the File System Check, it will being during startup.
 
-Option #7
-Will do everything listed above, options #1 through #6. (Option #3 isn't included)
+Option #6
+Will do everything listed above, options #1 through #5.
 Using this will pretty much cover all the basis of Windows Maintenance and is the most common option.
+
+Option #7
+Will offer another menu to install applications as desired.
+Using this will allow a variety of tools at your fingertips to troubleshoot/setup a new/old computer.
 
 Option #8
 Will allow you to rename the computer hostname.
