@@ -68,6 +68,7 @@ title (- WinBOLTv%Current_Version% - GitHub.com/OnlineLabs -)
 
 for %%R in (C:\WinBOLT\WinBOLT.cmd) do if %%~zR LSS %wsize% goto copy
 goto Verification
+
 :copy
 1>nul 2>nul md C:\WinBOLT\
 1>nul 2>nul md C:\WinBOLT\Backups
@@ -92,13 +93,17 @@ REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Sy
 REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
 cls
 
+color CF
 echo.
-echo  ###############################################
-echo  # Assure the following before running WinBOLT #
-echo  ###############################################
-echo  [X]  Full Local Administrator rights
-echo  [X]  .NET Framework 3.5 and above
-echo  [X]  PowerShell 2.0 and above
+echo  #########################################################
+echo  # Read and approve the following before running WinBOLT #
+echo  #########################################################
+echo  [X] Take full responsibility for running this script
+echo  [X] Have analyzed the entire source code of WinBOLT
+echo  [X] Full Local Administrator rights
+echo  [X] .NET Framework 3.5 and above
+echo  [X] PowerShell 2.0 and above
+
 echo.
 echo.   
 set /p op=Do you meet the requirements? (Y or N):
@@ -302,6 +307,9 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
+REM REGISTRY ENTRY DISABLES UAC AND SUPRESSES ALL NOTIFICATIONS (WILL TAKE EFFECT UPON REBOOT; DOES NOT FORCE REBOOT)
+REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
+REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
 del %systemroot%\System32\spool\printers\* /Q /F /S
@@ -1184,7 +1192,7 @@ goto altmenu
 :altmenu
 REM Alternative Menu to alert users backups have been completed.
 cd C:\WinBOLT\
-color 70
+color 8A
 echo.
 echo    ######################################################################
 echo    # WinBOLT v%Current_Version% - Maintenance Automation Tool - GitHub.com/OnlineLabs #
