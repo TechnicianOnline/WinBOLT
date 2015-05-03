@@ -10,7 +10,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-SET LAST_UPDATED=045.02.2015
+SET LAST_UPDATED=05.02.2015
 SET Current_Version=2.0
 SET wsize=40096
 REM ###################################################################################################################
@@ -302,9 +302,6 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
-REM REGISTRY ENTRY DISABLES UAC AND SUPRESSES ALL NOTIFICATIONS (WILL TAKE EFFECT UPON REBOOT; DOES NOT FORCE REBOOT)
-REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
-REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
 del %systemroot%\System32\spool\printers\* /Q /F /S
