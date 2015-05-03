@@ -74,14 +74,15 @@ goto Verification
 1>nul 2>nul md C:\WinBOLT\Backups
 1>nul 2>nul md C:\WinBOLT\Backups\Logs
 1>nul 2>nul xcopy /Q /J /Y /Z "monthly.bat" "C:\WinBOLT\"
-1>nul 2>nul xcopy /Q /J /Y /Z  rename.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /Q /J /Y /Z  LICENSE C:\WinBOLT\
-1>nul 2>nul xcopy /Q /J /Y /Z README.md C:\WinBOLT\
-1>nul 2>nul xcopy /Q /J /Y /Z wink.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /Q /J /Y /Z winkpop.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /Q /J /Y /Z winups.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /Q /J /Y /Z %0 C:\WinBOLT\
-1>nul 2>nul xcopy /Q /J /Y /Z %0 C:\Windows\System32\
+1>nul 2>nul xcopy /Q /J /Y /Z "monthly.vbs" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z "rename.vbs" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z "LICENSE" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z "README.md" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z "wink.vbs" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z "winkpop.vbs" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z "winups.vbs" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z "%0" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z "%0" "C:\Windows\System32\"
 echo Preparing system requirements........
 1>nul 2>nul robocopy EEK C:\WinBOLT\EEK\ /MIR /R:10
 cls
@@ -241,7 +242,8 @@ echo.
 echo.
 
 REM MONTHLY MAINTENANCE - 30TH AND 15TH OF MONTH
-echo Y|SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.bat"
+1>nul 2>nul schtasks /delete /tn WinBOLT-Monthly-Maintenance /f
+1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.vbs" /f
 
 cls
 echo COMPLETED - Maintenance Script Autoschedule
@@ -256,7 +258,7 @@ cls
 echo.
 echo.
 echo       Windows Tune Up, Please Wait!
-REM Installs CCLEANER+Config/RunsEEK+Updates/DisablesUAC/DelTempFiles/RunsCustomCCleaner
+REM Installs CCLEANER+Config/RunsEEK+Updates/DelTempFiles/RunsCustomCCleaner
 echo.
 echo.
 echo.
@@ -307,9 +309,6 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
-REM REGISTRY ENTRY DISABLES UAC AND SUPRESSES ALL NOTIFICATIONS (WILL TAKE EFFECT UPON REBOOT; DOES NOT FORCE REBOOT)
-REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
-REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
 del %systemroot%\System32\spool\printers\* /Q /F /S
@@ -425,7 +424,7 @@ for /F %%a in ('wmic LogicalDisk get DeviceID') do (
 :6no
 echo.
 echo.
-echo       Running EVERYTHING, please be patient this take a few hours!
+echo       Running EVERYTHING, please be patient this can take a few hours!
 echo.
 echo.
 echo.
@@ -439,9 +438,6 @@ echo.
 choco update -y
 choco update all -y
 choco install ccleaner -y
-REM REGISTRY ENTRY DISABLES UAC AND SUPRESSES ALL NOTIFICATIONS (WILL TAKE EFFECT UPON REBOOT; DOES NOT FORCE REBOOT)
-REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
-REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 cd     C:\Program Files\CCleaner\
 (echo  [Options]) > ccleaner.ini
 (echo  UpdateKey=01/19/2015 01:14:08 PM) >> ccleaner.ini
@@ -489,8 +485,8 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
 REM MONTHLY MAINTENANCE - 30TH AND 15TH OF MONTH
-echo Y|SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.bat"
-echo.
+1>nul 2>nul schtasks /delete /tn WinBOLT-Monthly-Maintenance /f
+1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.vbs" /f
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
 pushd "C:\WinBOLT\EEK\"
@@ -540,9 +536,6 @@ echo.
 choco update -y
 choco update all -y
 choco install ccleaner -y
-REM REGISTRY ENTRY DISABLES UAC AND SUPRESSES ALL NOTIFICATIONS (WILL TAKE EFFECT UPON REBOOT; DOES NOT FORCE REBOOT)
-REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
-REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 cd     C:\Program Files\CCleaner\
 (echo  [Options]) > ccleaner.ini
 (echo  UpdateKey=01/19/2015 01:14:08 PM) >> ccleaner.ini
@@ -590,8 +583,8 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
 REM MONTHLY MAINTENANCE - 30TH AND 15TH OF MONTH
-echo Y|SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.bat"
-echo.
+1>nul 2>nul schtasks /delete /tn WinBOLT-Monthly-Maintenance /f
+1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.vbs" /f
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
 del %systemroot%\System32\spool\printers\* /Q /F /S
@@ -621,7 +614,7 @@ echo.
 echo You have canceled the IMPORTANT reboot. Do it manually SOON!
 echo.
 timeout /t 6 >nul
-goto menu
+goto altmenu
 
 :7
 cls
