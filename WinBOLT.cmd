@@ -10,8 +10,8 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-REM LAST UPDATED 04.27.2015
-REM Current Version 2.0
+SET LAST_UPDATED=045.02.2015
+SET Current_Version=2.0
 REM ###################################################################################################################
 REM ######################################## ( - Change Log and Version - ) ###########################################
 REM ###################################################################################################################
@@ -47,7 +47,8 @@ REM **v2.0: Added option #11 Extract Windows Serial Key.
 REM **v2.0: Added wink.vbs and winkpop.vbs.
 REM **v2.0: Fixed Windows update in option #2 and #7, added winups.vbs.
 REM **v2.0: Re-worded important options.
-REM **v2.0: Swapped option #3 to option #7. Dropped option #4,#5,#6,#7 by one number as #3,#4,#5,#6.
+REM **v2.0: Swapped option #3 to option #7.
+REM **v2.0: Dropped option #4,#5,#6,#7 by one number as #3,#4,#5,#6.
 REM **v2.0: Added a SSD/HDD checker for option #6 and #5 to remove users prompt for input.
 REM **v2.0: Fixed script execution for wink.vbs and winkpop.vbs.
 REM **v2.0: Added spool clear command in option #4 and #6.
@@ -56,45 +57,30 @@ REM **v2.0: Added UAC reg entry in the begining of the script.
 REM **v2.0: Windows Update Output with timestamp added.
 REM **v2.0: renamed WinBOLT.bat to WinBOLT.cmd.
 REM **v2.0: release offical v2.0 on sourceforge.
+REM **v2.0: Added WinBOLT.cmd to native commandline path to execute.
+REM **v2.0: Improved Backup Script.
 REM ###################################################################################################################
 REM ###################################################################################################################
 
 color 5
-title (- WinBOLTv2.0 - GitHub.com/OnlineLabs -)
-REM Starting Windows Update as a time advantage for Option #2.
-IF EXIST C:\WinBOLT\winups.vbs goto Verification
-    else (
-cls
+title (- WinBOLTv%Current_Version% - GitHub.com/OnlineLabs -)
+
+set wsize=39813
+for %%R in (C:\WinBOLT\WinBOLT.cmd) do if %%~zR LSS %wsize% goto copy
+goto Verification
+:copy
 1>nul 2>nul md C:\WinBOLT\
 1>nul 2>nul md C:\WinBOLT\Backups
 1>nul 2>nul md C:\WinBOLT\Backups\Logs
-1>nul 2>nul xcopy /q /y monthly.bat C:\WinBOLT\
-1>nul 2>nul xcopy /q /y rename.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /q /y LICENSE C:\WinBOLT\
-1>nul 2>nul xcopy /q /y README.md C:\WinBOLT\
-1>nul 2>nul xcopy /q /y wink.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /q /y winkpop.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /q /y winups.vbs C:\WinBOLT\
-echo.
-echo Preparing system requirements........
-1>nul 2>nul robocopy EEK C:\WinBOLT\EEK\ /MIR /R:10
-cls
-goto recopy
-    )
-:recopy
-cls
-1>nul 2>nul md C:\WinBOLT\
-1>nul 2>nul md C:\WinBOLT\Backups
-1>nul 2>nul md C:\WinBOLT\Backups\Logs
-1>nul 2>nul xcopy /q /y monthly.bat C:\WinBOLT\
-1>nul 2>nul xcopy /q /y rename.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /q /y LICENSE C:\WinBOLT\
-1>nul 2>nul xcopy /q /y README.md C:\WinBOLT\
-1>nul 2>nul xcopy /q /y wink.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /q /y winkpop.vbs C:\WinBOLT\
-1>nul 2>nul xcopy /q /y winups.vbs C:\WinBOLT\
-cls
-color 5
+1>nul 2>nul xcopy /Q /J /Y /Z "monthly.bat" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z  rename.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /Q /J /Y /Z  LICENSE C:\WinBOLT\
+1>nul 2>nul xcopy /Q /J /Y /Z README.md C:\WinBOLT\
+1>nul 2>nul xcopy /Q /J /Y /Z wink.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /Q /J /Y /Z winkpop.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /Q /J /Y /Z winups.vbs C:\WinBOLT\
+1>nul 2>nul xcopy /Q /J /Y /Z %0 C:\WinBOLT\
+1>nul 2>nul xcopy /Q /J /Y /Z %0 C:\Windows\System32\
 echo Preparing system requirements........
 1>nul 2>nul robocopy EEK C:\WinBOLT\EEK\ /MIR /R:10
 cls
@@ -147,8 +133,9 @@ cls
 
 echo.
 echo    ######################################################################
-echo    # WinBOLT v2.0 - Maintenance Automation Tool - GitHub.com/OnlineLabs #
+echo    # WinBOLT v%Current_Version% - Maintenance Automation Tool - GitHub.com/OnlineLabs #
 echo    ######################################################################
+echo    (Last Updated: %Last_Updated%)
 echo.
 echo     1)  Install Chocolatey
 echo     2)  Run Windows Update and Chocolatey Updates
@@ -162,7 +149,6 @@ echo     9)  Get Hardware Information
 echo    10)  Backup User Account and Windows Serial Key (XP Not Supported)
 echo    11)  Extract Windows Serial Key
 echo     X)  Exit
-echo.
 echo.
 echo.
 echo.
@@ -637,7 +623,7 @@ cls
 
 echo.
 echo     ####################################
-echo     -WinBOLT v2.0 - Custom Applications-
+echo     -WinBOLT v%Current_Version% - Custom Applications-
 echo     ####################################
 echo.
 echo       1)  install PCDecrapifierPortable
@@ -1053,7 +1039,7 @@ pushd "C:\WinBOLT\"
 Cscript.exe C:\WinBOLT\wink.vbs
 echo.
 echo    ###############################################################
-echo    # WinBOLT v2.0 - Backup Local Machine - GitHub.com/OnlineLabs #
+echo    # WinBOLT v%Current_Version% - Backup Local Machine - GitHub.com/OnlineLabs #
 echo    ###############################################################
 echo.
 echo Windows XP Not Supported
@@ -1152,15 +1138,15 @@ echo [Please wait.]
 echo [Data transferring in the background. You will be alerted once finished.]
 1>nul 2>nul timeout /t 5
  
-echo Y|xcopy /S /E %source01% %dest%\Documents\ > %dest%\%profile%.log
-echo Y|xcopy /S /E %source02% %dest%\Contacts\ >> %dest%\%profile%.log
-echo Y|xcopy /S /E %source03% %dest%\Downloads\ >> %dest%\%profile%.log
-echo Y|xcopy /S /E %source04% %dest%Favorites\ >> %dest%\%profile%.log
-echo Y|xcopy /S /E %source05% %dest%\Links\ >> %dest%\%profile%.log
-echo Y|xcopy /S /E %source06% %dest%\Music\ >> %dest%\%profile%.log
-echo Y|xcopy /S /E %source07% %dest%\Pictures\ >> %dest%\%profile%.log
-echo Y|xcopy /S /E %source08% %dest%\Videos\ >> %dest%\%profile%.log
-echo Y|xcopy /S /E %source09% %dest%\AppData\ >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" > %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
 
 echo. ##########################################################>> %dest%\%profile%.log
 echo. ##########################################################>> %dest%\%profile%.log
@@ -1204,7 +1190,7 @@ cd C:\WinBOLT\
 color 70
 echo.
 echo    ######################################################################
-echo    # WinBOLT v2.0 - Maintenance Automation Tool - GitHub.com/OnlineLabs #
+echo    # WinBOLT v%Current_Version% - Maintenance Automation Tool - GitHub.com/OnlineLabs #
 echo    ######################################################################
 echo.
 echo     1)  Install Chocolatey
@@ -1253,7 +1239,7 @@ cls
 
 echo.
 echo    #######################################################################
-echo    # WinBOLT v2.0 - Windows Serial Key Extractor - GitHub.com/OnlineLabs #
+echo    # WinBOLT v%Current_Version% - Windows Serial Key Extractor - GitHub.com/OnlineLabs #
 echo    #######################################################################
 echo.
 echo.
