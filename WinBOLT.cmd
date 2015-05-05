@@ -10,7 +10,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-SET LAST_UPDATED=05.02.2015
+SET LAST_UPDATED=05.05.2015
 SET Current_Version=2.0
 SET wsize=40096
 REM ###################################################################################################################
@@ -148,14 +148,10 @@ echo     2)  Run Windows Update and Chocolatey Updates
 echo     3)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
 echo     4)  Tune Up - Delete Temp, Run CCLeaner, EEK update/scan/removal.
 echo     5)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
-echo     6)  All Of The Above - Full Blown System Maintenance
-echo     7)  Install Custom Applications
-echo     8)  Rename Computer Host Name
-echo     9)  Get Hardware Information
-echo    10)  Backup User Account and Windows Serial Key (XP Not Supported)
-echo    11)  Extract Windows Serial Key
-echo     X)  Exit
+echo     6) *All Of The Above - Full Blown System Maintenance
 echo.
+echo.    N)  Second Menu
+echo     X)  Exit
 echo.
 echo.
 echo.
@@ -166,6 +162,44 @@ if %op%==3  goto 3
 if %op%==4  goto 4
 if %op%==5  goto 5
 if %op%==6  goto 6
+if %op%==n  goto menu2
+if %op%==N  goto menu2
+if %op%==X goto exit
+if %op%==x goto exit
+if %op%==quit goto exit
+if %op%==Q goto exit
+if %op%==q goto exit
+echo Incorrect input, please try again.
+goto menu
+
+
+:menu2
+cd C:\WinBOLT\
+color a
+cls
+
+echo.
+echo    ######################################################################
+echo    # WinBOLT v%Current_Version% - Maintenance Automation Tool - GitHub.com/OnlineLabs #
+echo    ######################################################################
+echo    (Last Updated: %Last_Updated%)
+echo.
+echo                        Second Menu - Optional Task
+echo.
+echo     7)  Install Custom Applications
+echo     8)  Rename Computer Host Name
+echo     9)  Get Hardware Information
+echo    10)  Backup User Account and Windows Serial Key (XP Not Supported)
+echo    11)  Extract Windows Serial Key
+echo.
+echo     I)  Information on WinBOLT
+echo     R)  Return to the first menu
+echo     X)  Exit WinBOLT
+echo.
+echo.
+echo.
+echo.
+set /p op=I Select Number #
 if %op%==7  goto 7
 if %op%==8  goto 8
 if %op%==9  goto 9
@@ -176,12 +210,17 @@ if %op%==13 goto 13
 if %op%==14 goto 14
 if %op%==15 goto 15
 if %op%==16 goto 16
+if %op%==i goto intel
+if %op%==I goto intel
+if %op%==r goto menu
+if %op%==R goto menu
 if %op%==X goto exit
 if %op%==x goto exit
 if %op%==quit goto exit
 if %op%==Q goto exit
 if %op%==q goto exit
-goto exit
+echo Incorrect input, try again.
+goto menu2
 
 
 :1
@@ -1257,6 +1296,33 @@ if %op%==Yes goto menu
 if %op%==yes goto menu
 if %op%==y goto menu
 goto exit
+
+:info
+cls
+color a
+
+echo ###################################################################################################################
+echo ######################################### ( - WinBOLT Creator - ) #################################################
+echo ###################################################################################################################
+echo License: GNU GENERAL PUBLIC LICENSE
+echo Created by Christian Vazquez
+echo Email:Christian_V@live.com 
+echo Github.com/OnlineLabs
+echo Created 12/13/14
+echo ###################################################################################################################
+echo ####################################### ( - Current Version and Info - ) ##########################################
+echo ###################################################################################################################
+echo Last Updated: 05.05.2015
+echo Current Version: 2.0
+echo.
+echo This tool is created by a Technician for the Technicians.
+echo This will simplify your job on the Windows Operating System.
+echo The maintenance work more often than not becomes perpetual.
+echo My ultimate goal and function of WinBOLT was to automate the standard process of annoying Windows Updates, Malware Scanning, running cCleaner and task like backing up the local users files.
+echo.
+echo This tool is simple, effective and very useful.
+pause
+goto menu2
 
 :exit
 cls
