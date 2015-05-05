@@ -170,6 +170,7 @@ if %op%==quit goto exit
 if %op%==Q goto exit
 if %op%==q goto exit
 echo Incorrect input, please try again.
+timeout /t 1 >nul
 goto menu
 
 
@@ -220,6 +221,7 @@ if %op%==quit goto exit
 if %op%==Q goto exit
 if %op%==q goto exit
 echo Incorrect input, try again.
+timeout /t 1 >nul
 goto menu2
 
 
@@ -1297,7 +1299,7 @@ if %op%==yes goto menu
 if %op%==y goto menu
 goto exit
 
-:info
+:intel
 cls
 color a
 
