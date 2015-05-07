@@ -73,6 +73,10 @@ goto Verification
 1>nul 2>nul md C:\WinBOLT\
 1>nul 2>nul md C:\WinBOLT\Backups
 1>nul 2>nul md C:\WinBOLT\Backups\Logs
+1>nul 2>nul del C:\WinBOLT\README.md
+1>nul 2>nul del C:\WinBOLT\monthly.bat
+1>nul 2>nul del C:\WinBOLT\WinBOLT.cmd
+1>nul 2>nul del C:\Windows\System32\WinBOLT.cmd
 1>nul 2>nul xcopy /Q /J /Y /Z "monthly.bat" "C:\WinBOLT\"
 1>nul 2>nul xcopy /Q /J /Y /Z "monthly.vbs" "C:\WinBOLT\"
 1>nul 2>nul xcopy /Q /J /Y /Z "rename.vbs" "C:\WinBOLT\"
@@ -99,14 +103,15 @@ echo.
 echo  #########################################################
 echo  # Read and approve the following before running WinBOLT #
 echo  #########################################################
-echo  [X] Take full responsibility for running this script
-echo  [X] Have analyzed the entire source code of WinBOLT
+echo  [X] Provided without warranty, either expressed or implied
+echo  [X] Product is licened under GNU General Public v2
 echo  [X] Full Local Administrator rights
 echo  [X] .NET Framework 3.5 and above
 echo  [X] PowerShell 2.0 and above
-
 echo.
-echo.   
+echo.
+FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
+echo.
 set /p op=Do you meet the requirements? (Y or N):
 if %op%==Y goto SelfAdminTest
 if %op%==Yes goto SelfAdminTest
@@ -256,11 +261,22 @@ choco update -y
 choco update all -y
 cls
 echo.
-echo Chocolatey has finished updating itself and all installed applications.
-echo Currently scanning for Windows Updates and installing, this might take some time!
+echo Chocolatey and Apps finished updating.
+echo.
+FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
 echo.
 echo.
-echo Windows Update Output: C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log
+echo Currently scanning for Windows Updates
+echo.
+echo.
+FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
+echo.
+echo.
+echo Downloading/Installing Windows Updates, this might a few hours!
+echo.
+echo.
+echo Windows Update Output:
+echo    C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log
 echo.
 Cscript.exe C:\WinBOLT\winups.vbs > C:\WinBOLT\recent_windows_update.log
 copy "C:\WinBOLT\recent_windows_update.log" "C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log"
@@ -680,6 +696,32 @@ echo      12)  install GreenShot
 echo      13)  install Atom Text Editor
 echo      14)  install f.lux
 echo      15)  install RKill Portable
+echo      16)  install Google Chrome
+echo      17)  install Revo Uninstaller
+echo      18)  install Mozilla Firefox
+echo      19)  install ClamWin 
+echo      20)  install Notepad++
+echo      21)  install Skype
+echo      22)  install FileZilla
+echo      23)  install PuTTY
+echo      24)  install Dropbox
+echo      25)  install VirtualBox
+echo      26)  install Sublime Text 3
+echo      27)  install TeamViewer
+echo      28)  install KeePass
+echo      29)  install Cygwin
+echo      30)  install Wireshark
+echo      31)  install WinRAR
+echo      32)  install iTunes
+echo      33)  install Classic Shell
+echo      34)  install Tor Browser Bundle
+echo      35)  install Remote Desktop Connection Manager
+echo      36)  install TeraCopy
+echo      37)  install TrueCrypt
+echo      38)  install GitHub on Windows
+echo      39)  install VMware Player
+echo      40)  install HexChat
+echo.
 echo       X)  Back to main menu
 echo       S)  Shows installed appliactions
 echo.
@@ -716,6 +758,78 @@ if %op%==14  goto #14
 if %op%==U14  goto U#14
 if %op%==15  goto #15
 if %op%==U15  goto U#15
+if %op%==16  goto #16
+if %op%==U16  goto U#16
+if %op%==17  goto #17
+if %op%==U17  goto U#17
+if %op%==18  goto #18
+if %op%==U18  goto U#18
+if %op%==19  goto #19
+if %op%==U19  goto U#19
+if %op%==20  goto #20
+if %op%==U20  goto U#20
+if %op%==21  goto #21
+if %op%==U21  goto U#21
+if %op%==22  goto #22
+if %op%==U22  goto U#22
+if %op%==23  goto #23
+if %op%==U23  goto U#23
+if %op%==24  goto #24
+if %op%==U24  goto U#24
+if %op%==25  goto #25
+if %op%==U25  goto U#25
+if %op%==26  goto #26
+if %op%==U26  goto U#26
+if %op%==27  goto #27
+if %op%==U27  goto U#27
+if %op%==28  goto #28
+if %op%==U28  goto U#28
+if %op%==29  goto #29
+if %op%==U29  goto U#29
+if %op%==30  goto #30
+if %op%==U30  goto U#30
+if %op%==31  goto #31
+if %op%==U31  goto U#31
+if %op%==32  goto #32
+if %op%==U32  goto U#32
+if %op%==33  goto #33
+if %op%==U33  goto U#33
+if %op%==34  goto #34
+if %op%==U34  goto U#34
+if %op%==35  goto #35
+if %op%==U35  goto U#35
+if %op%==36  goto #36
+if %op%==U36  goto U#36
+if %op%==37  goto #37
+if %op%==U37  goto U#37
+if %op%==38  goto #38
+if %op%==U38  goto U#38
+if %op%==39  goto #39
+if %op%==U39  goto U#39
+if %op%==40  goto #40
+if %op%==U40  goto U#40
+if %op%==41  goto #41
+if %op%==U41  goto U#41
+if %op%==42  goto #42
+if %op%==U42  goto U#42
+if %op%==43  goto #43
+if %op%==43  goto U#43
+if %op%==44  goto #44
+if %op%==U44  goto U#44
+if %op%==45  goto #45
+if %op%==U45  goto U#45
+if %op%==46  goto #46
+if %op%==U46  goto U#46
+if %op%==47  goto #47
+if %op%==U47  goto U#47
+if %op%==48  goto #48
+if %op%==U48  goto U#48
+if %op%==49  goto #49
+if %op%==U49  goto U#49
+if %op%==50  goto #50
+if %op%==U50  goto U#50
+if %op%==51  goto #51
+if %op%==U51  goto U#51
 if %op%==X goto menu
 if %op%==x goto menu
 if %op%==quit goto menu
@@ -831,6 +945,216 @@ echo COMPLETED
 timeout /t 2 >nul
 goto 7
 
+:#16
+1>nul 2>nul choco install googlechrome -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#17
+1>nul 2>nul choco install revo.uninstaller -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#18
+1>nul 2>nul choco install firefox -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#19
+1>nul 2>nul choco install clamwin -yWhat h
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#20
+1>nul 2>nul choco install notepadplusplus -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#21
+1>nul 2>nul choco install skype -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#22
+1>nul 2>nul choco install filezilla -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#23
+1>nul 2>nul choco install putty -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#24
+1>nul 2>nul choco install dropbox -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#25
+1>nul 2>nul choco install virtualbox -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#26
+1>nul 2>nul choco install sublimetext3 -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#27
+1>nul 2>nul choco install teamviewer -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#28
+1>nul 2>nul choco install keepass -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#29
+1>nul 2>nul choco install cygwin -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#30
+1>nul 2>nul choco install wireshark -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#31
+1>nul 2>nul choco install winrar -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#32
+1>nul 2>nul choco install itunes -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#33
+1>nul 2>nul choco install classic-shell -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#34
+1>nul 2>nul choco install tor-browser -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#35
+1>nul 2>nul choco install rdcman -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#36
+1>nul 2>nul choco install teracopy -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#37
+1>nul 2>nul choco install truecrypt -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#38
+1>nul 2>nul choco install githubforwindows -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#39
+1>nul 2>nul choco install vmwareplayer -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#40
+1>nul 2>nul choco install hexchat -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#41
+1>nul 2>nul choco install **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#42
+1>nul 2>nul choco install **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#43
+1>nul 2>nul choco install **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#44
+1>nul 2>nul choco install **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:#45
+1>nul 2>nul choco install **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
 REM UNINSTALL CUSTOM APPLICATIONS
 :U#1
 1>nul 2>nul choco uninstall pcdecrapifierportable -y
@@ -937,11 +1261,223 @@ echo COMPLETED - Uninstall
 timeout /t 2 >nul
 goto 7
 
+#############
+
+
+:U#16
+1>nul 2>nul choco uninstall googlechrome -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#17
+1>nul 2>nul choco uninstall revo.uninstaller -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#18
+1>nul 2>nul choco uninstall firefox -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#19
+1>nul 2>nul choco uninstall clamwin -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#20
+1>nul 2>nul choco uninstall notepadplusplus -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#21
+1>nul 2>nul choco uninstall skype -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#22
+1>nul 2>nul choco uninstall filezilla -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#23
+1>nul 2>nul choco uninstall putty -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#24
+1>nul 2>nul choco uninstall dropbox -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#25
+1>nul 2>nul choco uninstall virtualbox -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#26
+1>nul 2>nul choco uninstall sublimetext3 -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#27
+1>nul 2>nul choco uninstall teamviewer -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#28
+1>nul 2>nul choco uninstall keepass -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#29
+1>nul 2>nul choco uninstall cygwin -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#30
+1>nul 2>nul choco uninstall wireshark -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#31
+1>nul 2>nul choco uninstall winrar -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#32
+1>nul 2>nul choco uninstall itunes -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#33
+1>nul 2>nul choco uninstall classic-shell -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#34
+1>nul 2>nul choco uninstall tor-browser -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#35
+1>nul 2>nul choco uninstall rdcman -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#36
+1>nul 2>nul choco uninstall teracopy -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#37
+1>nul 2>nul choco uninstall truecrypt -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#38
+1>nul 2>nul choco uninstall githubforwindows -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#39
+1>nul 2>nul choco uninstall vmwareplayer -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#40
+1>nul 2>nul choco uninstall hexchat -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#41
+1>nul 2>nul choco uninstall **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#42
+1>nul 2>nul choco uninstall **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#43
+1>nul 2>nul choco uninstall **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#44
+1>nul 2>nul choco uninstall **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
+:U#45
+1>nul 2>nul choco uninstall **** -y
+cls
+echo COMPLETED
+timeout /t 2 >nul
+goto 7
+
 :show
 choco list -localonly
 pause
 goto 7
-
 
 
 :8
@@ -1231,18 +1767,16 @@ echo.
 echo    ######################################################################
 echo    # WinBOLT v%Current_Version% - Maintenance Automation Tool - GitHub.com/OnlineLabs #
 echo    ######################################################################
+echo    (Last Updated: %Last_Updated%)
 echo.
 echo     1)  Install Chocolatey
 echo     2)  Run Windows Update and Chocolatey Updates
-echo     3)  Install Custom Applications (Slow/Infected/New OS)
-echo     4)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
-echo     5)  WinBOLT Tune Up - Delete Temp, Run CCLeaner, EEK update/scan/removal.
-echo     6)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
-echo     7)  All Of Thee Above (Does NOT include Opt#3)
-echo     8)  Rename Computer Host Name
-echo     9)  Get Hardware Information
-echo    10)  Backup Local C:\ Drive (XP Not supported)
+echo     3)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
+echo     4)  Tune Up - Delete Temp, Run CCLeaner, EEK update/scan/removal.
+echo     5)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
+echo     6) *All Of The Above - Full Blown System Maintenance
 echo.
+echo.    N)  Second Menu
 echo     X)  Exit
 echo.
 echo.
@@ -1253,22 +1787,16 @@ if %op%==3  goto 3
 if %op%==4  goto 4
 if %op%==5  goto 5
 if %op%==6  goto 6
-if %op%==7  goto 7
-if %op%==8  goto 8
-if %op%==9  goto 9
-if %op%==10 goto 10
-if %op%==11 goto 11
-if %op%==12 goto 12
-if %op%==13 goto 13
-if %op%==14 goto 14
-if %op%==15 goto 15
-if %op%==16 goto 16
+if %op%==n  goto menu2
+if %op%==N  goto menu2
 if %op%==X goto exit
 if %op%==x goto exit
 if %op%==quit goto exit
 if %op%==Q goto exit
 if %op%==q goto exit
-goto exit
+echo Incorrect input, please try again.
+timeout /t 1 >nul
+goto menu
 
 :11
 pushd "C:\WinBOLT\"
@@ -1302,27 +1830,30 @@ goto exit
 :intel
 cls
 color a
-
-echo ###################################################################################################################
-echo ######################################### ( - WinBOLT Creator - ) #################################################
-echo ###################################################################################################################
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo ****************** ( - WinBOLT Creator - ) ***********************
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo License: GNU GENERAL PUBLIC LICENSE
 echo Created by Christian Vazquez
 echo Email:Christian_V@live.com 
 echo Github.com/OnlineLabs
 echo Created 12/13/14
-echo ###################################################################################################################
-echo ####################################### ( - Current Version and Info - ) ##########################################
-echo ###################################################################################################################
-echo Last Updated: 05.05.2015
+echo.
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo ************** ( - Current Version and Info - ) ******************
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo Current Version: 2.0
 echo.
 echo This tool is created by a Technician for the Technicians.
 echo This will simplify your job on the Windows Operating System.
 echo The maintenance work more often than not becomes perpetual.
-echo My ultimate goal and function of WinBOLT was to automate the standard process of annoying Windows Updates, Malware Scanning, running cCleaner and task like backing up the local users files.
+echo My ultimate goal and function of WinBOLT was to automate
+echo the standard process of annoying Windows Updates, Malware Scans
+echo running CCleaner and task like backing up the local users files.
 echo.
 echo This tool is simple, effective and very useful.
+echo.
+FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
 pause
 goto menu2
 
