@@ -10,7 +10,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-SET LAST_UPDATED=05.05.2015
+SET LAST_UPDATED=05.08.2015
 SET Current_Version=2.0
 SET wsize=40096
 REM ###################################################################################################################
@@ -70,13 +70,10 @@ for %%R in (C:\WinBOLT\WinBOLT.cmd) do if %%~zR LSS %wsize% goto copy
 goto Verification
 
 :copy
-1>nul 2>nul md C:\WinBOLT\
-1>nul 2>nul md C:\WinBOLT\Backups
-1>nul 2>nul md C:\WinBOLT\Backups\Logs
-1>nul 2>nul del C:\WinBOLT\README.md
-1>nul 2>nul del C:\WinBOLT\monthly.bat
-1>nul 2>nul del C:\WinBOLT\WinBOLT.cmd
-1>nul 2>nul del C:\Windows\System32\WinBOLT.cmd
+1>nul 2>nul del /f C:\WinBOLT\README.md
+1>nul 2>nul del /f C:\WinBOLT\monthly.bat
+1>nul 2>nul del /f C:\WinBOLT\WinBOLT.cmd
+1>nul 2>nul del /f C:\Windows\System32\WinBOLT.cmd
 1>nul 2>nul xcopy /Q /J /Y /Z "monthly.bat" "C:\WinBOLT\"
 1>nul 2>nul xcopy /Q /J /Y /Z "monthly.vbs" "C:\WinBOLT\"
 1>nul 2>nul xcopy /Q /J /Y /Z "rename.vbs" "C:\WinBOLT\"
@@ -89,6 +86,10 @@ goto Verification
 1>nul 2>nul xcopy /Q /J /Y /Z "%0" "C:\Windows\System32\"
 echo Preparing system requirements........
 1>nul 2>nul robocopy EEK C:\WinBOLT\EEK\ /MIR /R:10
+IF EXIST C:\WinBOLT\Backups\Logs GOTO Verification
+1>nul 2>nul md C:\WinBOLT\
+1>nul 2>nul md C:\WinBOLT\Backups
+1>nul 2>nul md C:\WinBOLT\Backups\Logs
 cls
 goto Verification
 
@@ -96,8 +97,36 @@ goto Verification
 REM This will disable UAC. It's required for WinBOLT.
 REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
-cls
 
+cls
+color a
+echo Starting                              .//+/-..:s     
+echo    WinBOLT                         `:/+:`       y`    
+echo        v%Current_Version%                    ./+/.`          h`    
+echo                              `/+/`    `        `h     
+echo                            :+/.   .ossoss:     +:     
+echo                         `/+-`    .d:`   .h+   `y      
+echo              `.--::::--+/.       oy      :m   s.      
+echo       `-://+/::-..../s/`         -m-    `yo  /+       
+echo    .:+/-.`        .+/`         `` -ss++os/  -s        
+echo  .o/.`          `+/`        `/+/o:  `...   .y`        
+echo  -o/:--.       -o.        `/o-  /+        .y`         
+echo    `.--:+/:-` /+`        -o:   :s`       .s.          
+echo          `.:/os        `++`  `++`       .s.           
+echo              `+/`     :o.   -o-        -s`            
+echo                -s:` `o/   .+/`        /d`             
+echo              `:+/:s/s-  `++.        `o//+             
+echo             :o-  /+h. `/o.         -o.  d             
+echo            /o   +/y``:oy.`       .+/    d             
+echo            h`  .oh-/o/+.:y/.`  .++`     h`            
+echo            h`  .oos+:-  :o`:/+o/.       h`            
+echo            o:   `.`    -y`   `o+        d             
+echo            s-   ````./+/       :s`     .y             
+echo           +o`-+/////-`          .y.    s:             
+echo          `d++-                   `y`  -y              
+FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
+cls
+ 
 color CF
 echo.
 echo  #########################################################
@@ -110,7 +139,6 @@ echo  [X] .NET Framework 3.5 and above
 echo  [X] PowerShell 2.0 and above
 echo.
 echo.
-FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
 echo.
 set /p op=Do you meet the requirements? (Y or N):
 if %op%==Y goto SelfAdminTest
@@ -1829,7 +1857,7 @@ goto exit
 
 :intel
 cls
-color a
+color cf
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ****************** ( - WinBOLT Creator - ) ***********************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1842,18 +1870,19 @@ echo.
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ************** ( - Current Version and Info - ) ******************
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo Current Version: 2.0
+echo Current Version: %Current_Version%
 echo.
 echo This tool is created by a Technician for the Technicians.
 echo This will simplify your job on the Windows Operating System.
 echo The maintenance work more often than not becomes perpetual.
 echo My ultimate goal and function of WinBOLT was to automate
 echo the standard process of annoying Windows Updates, Malware Scans
-echo running CCleaner and task like backing up the local users files.
+echo running CCleaner and other misc useful tools.
 echo.
 echo This tool is simple, effective and very useful.
 echo.
 FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
+echo.
 pause
 goto menu2
 
