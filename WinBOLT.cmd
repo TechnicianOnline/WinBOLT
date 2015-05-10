@@ -307,7 +307,7 @@ echo.
 FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
 echo.
 echo.
-echo Downloading/Installing Windows Updates, this might a few hours!
+echo Downloading/Installing Windows Updates, this might be a few hours!
 echo.
 echo.
 echo Windows Update Output:
@@ -614,7 +614,7 @@ goto menu
 echo.
 echo      Solid State Drive Detected - Skipping Defrag
 echo.
-echo       Running EVERYTHING, please be patient this take a few hours!
+echo       Running EVERYTHING, please be patient this will take a few hours!
 echo.
 echo.
 echo.
