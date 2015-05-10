@@ -1,4 +1,5 @@
 @echo off
+mode con:cols=90 lines=30
 REM ###################################################################################################################
 REM ######################################### ( - WinBOLT Creator - ) #################################################
 REM ###################################################################################################################
@@ -10,7 +11,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-SET LAST_UPDATED=05.08.2015
+SET LAST_UPDATED=05.10.2015
 SET Current_Version=2.0
 SET wsize=40096
 REM ###################################################################################################################
@@ -60,6 +61,7 @@ REM **v2.0: renamed WinBOLT.bat to WinBOLT.cmd.
 REM **v2.0: release offical v2.0 on sourceforge.
 REM **v2.0: Added WinBOLT.cmd to native commandline path to execute.
 REM **v2.0: Improved Backup Script.
+REM **v2.0: 
 REM ###################################################################################################################
 REM ###################################################################################################################
 
@@ -100,30 +102,32 @@ REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v Enable
 
 cls
 color a
-echo Starting                              .//+/-..:s     
-echo    WinBOLT                         `:/+:`       y`    
-echo        v%Current_Version%                    ./+/.`          h`    
-echo                              `/+/`    `        `h     
-echo                            :+/.   .ossoss:     +:     
-echo                         `/+-`    .d:`   .h+   `y      
-echo              `.--::::--+/.       oy      :m   s.      
-echo       `-://+/::-..../s/`         -m-    `yo  /+       
-echo    .:+/-.`        .+/`         `` -ss++os/  -s        
-echo  .o/.`          `+/`        `/+/o:  `...   .y`        
-echo  -o/:--.       -o.        `/o-  /+        .y`         
-echo    `.--:+/:-` /+`        -o:   :s`       .s.          
-echo          `.:/os        `++`  `++`       .s.           
-echo              `+/`     :o.   -o-        -s`            
-echo                -s:` `o/   .+/`        /d`             
-echo              `:+/:s/s-  `++.        `o//+             
-echo             :o-  /+h. `/o.         -o.  d             
-echo            /o   +/y``:oy.`       .+/    d             
-echo            h`  .oh-/o/+.:y/.`  .++`     h`            
-echo            h`  .oos+:-  :o`:/+o/.       h`            
-echo            o:   `.`    -y`   `o+        d             
-echo            s-   ````./+/       :s`     .y             
-echo           +o`-+/////-`          .y.    s:             
-echo          `d++-                   `y`  -y              
+echo.
+echo.
+echo                Starting                              .//+/-..:s     
+echo                   WinBOLT                         `:/+:`       y`    
+echo                       v%Current_Version%                    ./+/.`            h`    
+echo                                             `/+/`    `        `h     
+echo                                            :+/.   .ossoss:     +:     
+echo                                        `/+-`    .d:`   .h+   `y      
+echo                             `.--::::--+/.       oy      :m   s.      
+echo                      `-://+/::-..../s/`         -m-    `yo  /+       
+echo                   .:+/-.`        .+/`         `` -ss++os/  -s        
+echo                 .o/.`          `+/`        `/+/o:  `...   .y`        
+echo                 -o/:--.       -o.        `/o-  /+        .y`         
+echo                   `.--:+/:-` /+`        -o:   :s`       .s.          
+echo                         `.:/os        `++`  `++`       .s.           
+echo                             `+/`     :o.   -o-        -s`            
+echo                               -s:` `o/   .+/`        /d`             
+echo                             `:+/:s/s-  `++.        `o//+             
+echo                            :o-  /+h. `/o.         -o.  d             
+echo                           /o   +/y``:oy.`       .+/    d             
+echo                           h`  .oh-/o/+.:y/.`  .++`     h`            
+echo                           h`  .oos+:-  :o`:/+o/.       h`            
+echo                           o:   `.`    -y`   `o+        d             
+echo                           s-   ````./+/       :s`     .y             
+echo                          +o`-+/////-`          .y.    s:             
+echo                         `d++-                   `y`  -y              
 FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
 cls
 
@@ -168,6 +172,7 @@ IF %ERRORLEVEL% EQU 0 (
 
 REM GREETING MENU
 :menu
+mode con:cols=90 lines=30
 cd C:\WinBOLT\
 color a
 cls
@@ -705,7 +710,7 @@ goto altmenu
 
 :7
 cls
-
+mode con:cols=100 lines=55
 echo.
 echo     ####################################
 echo     -WinBOLT v%Current_Version% - Custom Applications-
@@ -1859,6 +1864,35 @@ goto exit
 
 :intel
 cls
+color a
+echo.
+echo.
+echo                Starting                              .//+/-..:s     
+echo                   WinBOLT                         `:/+:`       y`    
+echo                       v%Current_Version%                    ./+/.`            h`    
+echo                                             `/+/`    `        `h     
+echo                                            :+/.   .ossoss:     +:     
+echo                                        `/+-`    .d:`   .h+   `y      
+echo                             `.--::::--+/.       oy      :m   s.      
+echo                      `-://+/::-..../s/`         -m-    `yo  /+       
+echo                   .:+/-.`        .+/`         `` -ss++os/  -s        
+echo                 .o/.`          `+/`        `/+/o:  `...   .y`        
+echo                 -o/:--.       -o.        `/o-  /+        .y`         
+echo                   `.--:+/:-` /+`        -o:   :s`       .s.          
+echo                         `.:/os        `++`  `++`       .s.           
+echo                             `+/`     :o.   -o-        -s`            
+echo                               -s:` `o/   .+/`        /d`             
+echo                             `:+/:s/s-  `++.        `o//+             
+echo                            :o-  /+h. `/o.         -o.  d             
+echo                           /o   +/y``:oy.`       .+/    d             
+echo                           h`  .oh-/o/+.:y/.`  .++`     h`            
+echo                           h`  .oos+:-  :o`:/+o/.       h`            
+echo                           o:   `.`    -y`   `o+        d             
+echo                           s-   ````./+/       :s`     .y             
+echo                          +o`-+/////-`          .y.    s:             
+echo                         `d++-                   `y`  -y              
+FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
+cls
 color cf
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo ****************** ( - WinBOLT Creator - ) ***********************
@@ -1922,7 +1956,7 @@ color a
 timeout /t 1 >nul
 color c
 timeout /t 1 >nul
-
+:random
 color a
 echo %random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%
 echo %random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%
