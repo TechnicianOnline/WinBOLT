@@ -1867,7 +1867,7 @@ cls
 color a
 echo.
 echo.
-echo                Starting                              .//+/-..:s     
+echo                Intel On                              .//+/-..:s     
 echo                   WinBOLT                         `:/+:`       y`    
 echo                       v%Current_Version%                    ./+/.`            h`    
 echo                                             `/+/`    `        `h     
