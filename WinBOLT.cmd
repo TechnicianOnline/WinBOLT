@@ -128,7 +128,8 @@ echo                           o:   `.`    -y`   `o+        d
 echo                           s-   ````./+/       :s`     .y             
 echo                          +o`-+/////-`          .y.    s:             
 echo                         `d++-                   `y`  -y              
-FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
+FOR /L %%n IN (1,1,10) DO ping 1 127.0.0.1 > nul & <nul set /p =.
+timeout /t 1 >nul
 cls
 
 
@@ -158,6 +159,7 @@ REM Self Admin Check
 1>nul 2>nul netstat -bno
 IF %ERRORLEVEL% EQU 0 (
     cls
+    color ca
     echo.
     ECHO                    Administrator rights verified.
     timeout /t 2 >nul
@@ -1891,7 +1893,8 @@ echo                           o:   `.`    -y`   `o+        d
 echo                           s-   ````./+/       :s`     .y             
 echo                          +o`-+/////-`          .y.    s:             
 echo                         `d++-                   `y`  -y              
-FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
+FOR /L %%n IN (1,1,10) DO ping -n 1 127.0.0.1 > nul & <nul set /p =.
+FOR /L %%n IN (1,1,10) DO ping -n 1 127.0.0.1 > nul & <nul set /p =.
 cls
 color cf
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
