@@ -3,7 +3,7 @@
 # Maintenance Automation Tool
 ###############################################################################################################
 
-This tool is created by a Technician for the Technicians. This will simplify your job on the Windows Operating System. The maintenance work more often than not becomes perpetual. My ultimate goal and function of WinBOLT was to automate the standard process of annoying Windows Updates, Malware Scanning, running cCleaner and task like backing up the local users files.
+This tool is created by a Technician for the Technicians. This will simplify your job on the Windows Operating System. The maintenance work more often than not becomes perpetual. My ultimate goal and function of WinBOLT was to automate the standard process of annoying Windows Updates, Malware Scanning, running CCleaner and task like backing up the local users files.
 
 This tool is simple, effective and very useful.
 
@@ -13,9 +13,9 @@ This runs the Emsisoft's Commandline Scanner. If this is for personal use you do
 # Instructions
 ###############################################################################################################
 
-To start using WinBOLT, you must run WinBOLT.bat with Administrator rights.
+To start using WinBOLT, you must run WinBOLT.cmd with Administrator rights.
 
-It's important to know option #7 is the most common option as it does the "full blown maintenance".
+It's important to know option #6 is the most common option as it does the "full blown maintenance".
 
 ###############################################################################################################
 # Details about WinBOLT Options
