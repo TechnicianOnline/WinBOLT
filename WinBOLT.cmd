@@ -11,9 +11,9 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-SET LAST_UPDATED=05.10.2015
-SET Current_Version=2.0
-SET wsize=40096
+SET LAST_UPDATED=06.04.2015
+SET Current_Version=3.0
+SET wsize=10096
 REM ###################################################################################################################
 REM ######################################## ( - Change Log and Version - ) ###########################################
 REM ###################################################################################################################
@@ -61,7 +61,12 @@ REM **v2.0: renamed WinBOLT.bat to WinBOLT.cmd.
 REM **v2.0: release offical v2.0 on sourceforge.
 REM **v2.0: Added WinBOLT.cmd to native commandline path to execute.
 REM **v2.0: Improved Backup Script.
-REM **v2.0: 
+REM **v2.0: Improved hardware script
+REM **v3.0: added sophos scanner engine
+REM **v3.0: adjusted monthly maintenance to 10PM each 1/16
+REM **v3.0: added offical license and TAC
+REM **v3.0: Updated documentation/guide
+REM **v3.0: placed support scripts within /repo dir.
 REM ###################################################################################################################
 REM ###################################################################################################################
 
@@ -72,33 +77,35 @@ for %%R in (C:\WinBOLT\WinBOLT.cmd) do if %%~zR LSS %wsize% goto copy
 goto Verification
 
 :copy
+IF EXIST C:\WinBOLT\Backups\Logs GOTO fileman
+1>nul 2>nul md C:\WinBOLT\
+1>nul 2>nul md C:\WinBOLT\Backups
+1>nul 2>nul md C:\WinBOLT\Backups\Logs
+
+:fileman
 1>nul 2>nul del /f C:\WinBOLT\README.md
 1>nul 2>nul del /f C:\WinBOLT\monthly.bat
 1>nul 2>nul del /f C:\WinBOLT\WinBOLT.cmd
 1>nul 2>nul del /f C:\Windows\System32\WinBOLT.cmd
-1>nul 2>nul xcopy /Q /J /Y /Z "monthly.bat" "C:\WinBOLT\"
-1>nul 2>nul xcopy /Q /J /Y /Z "monthly.vbs" "C:\WinBOLT\"
-1>nul 2>nul xcopy /Q /J /Y /Z "rename.vbs" "C:\WinBOLT\"
-1>nul 2>nul xcopy /Q /J /Y /Z "LICENSE" "C:\WinBOLT\"
-1>nul 2>nul xcopy /Q /J /Y /Z "README.md" "C:\WinBOLT\"
-1>nul 2>nul xcopy /Q /J /Y /Z "wink.vbs" "C:\WinBOLT\"
-1>nul 2>nul xcopy /Q /J /Y /Z "winkpop.vbs" "C:\WinBOLT\"
-1>nul 2>nul xcopy /Q /J /Y /Z "winups.vbs" "C:\WinBOLT\"
+1>nul 2>nul xcopy /Q /J /Y /Z "monthly.bat" "C:\WinBOLT\repo\"
+1>nul 2>nul xcopy /Q /J /Y /Z "monthly.vbs" "C:\WinBOLT\repo\"
+1>nul 2>nul xcopy /Q /J /Y /Z "rename.vbs" "C:\WinBOLT\repo\"
+1>nul 2>nul xcopy /Q /J /Y /Z "LICENSE" "C:\WinBOLT\repo\"
+1>nul 2>nul xcopy /Q /J /Y /Z "README.md" "C:\WinBOLT\repo\"
+1>nul 2>nul xcopy /Q /J /Y /Z "wink.vbs" "C:\WinBOLT\repo\"
+1>nul 2>nul xcopy /Q /J /Y /Z "winkpop.vbs" "C:\WinBOLT\repo\"
+1>nul 2>nul xcopy /Q /J /Y /Z "winups.vbs" "C:\WinBOLT\repo\"
 1>nul 2>nul xcopy /Q /J /Y /Z "%0" "C:\WinBOLT\"
 1>nul 2>nul xcopy /Q /J /Y /Z "%0" "C:\Windows\System32\"
 echo Preparing system requirements........
 1>nul 2>nul robocopy EEK C:\WinBOLT\EEK\ /MIR /R:10
-IF EXIST C:\WinBOLT\Backups\Logs GOTO Verification
-1>nul 2>nul md C:\WinBOLT\
-1>nul 2>nul md C:\WinBOLT\Backups
-1>nul 2>nul md C:\WinBOLT\Backups\Logs
 cls
-goto Verification
 
 :Verification
 REM This will disable UAC. It's required for WinBOLT.
 REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
+
 
 cls
 color a
@@ -130,29 +137,46 @@ echo                          +o`-+/////-`          .y.    s:
 echo                         `d++-                   `y`  -y              
 FOR /L %%n IN (1,1,10) DO ping 1 127.0.0.1 > nul & <nul set /p =.
 timeout /t 1 >nul
+
+
+:ToS
 cls
-
-
-
 color CF
 echo.
-echo  #########################################################
-echo  # Read and approve the following before running WinBOLT #
-echo  #########################################################
-echo  [X] Provided without warranty, either expressed or implied
-echo  [X] Product is licened under GNU General Public v2
-echo  [X] Full Local Administrator rights
-echo  [X] .NET Framework 3.5 and above
-echo  [X] PowerShell 2.0 and above
+echo  ####################################################
+echo  # Read and approve the following before continuing #
+echo  ####################################################
+echo.
+echo WinBOLT v%Current_Version%
+echo Copyright (C) 2014  Christian Vazquez
+echo.
+echo This program is free software; you can redistribute it and/or modify
+echo it under the terms of the GNU General Public License as published by
+echo the Free Software Foundation; either version 2 of the License.
+echo.
+echo     This program is distributed in the hope that it will be useful,
+echo     but WITHOUT ANY WARRANTY; without even the implied warranty of
+echo     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+echo     GNU General Public License for more details.
+echo.
+echo [X] Product is licened under GNU General Public v2
+echo [X] Full Local Administrator rights
+echo [X] .NET Framework 3.5 and above
+echo [X] PowerShell 2.0 and above
 echo.
 echo.
-echo.
-set /p op=Do you meet the requirements? (Y or N):
+set /p op=Do you agree to the terms and conditions? (Y or N):
 if %op%==Y goto SelfAdminTest
 if %op%==Yes goto SelfAdminTest
 if %op%==yes goto SelfAdminTest
 if %op%==y goto SelfAdminTest
-goto exit
+if %op%==N goto exit
+if %op%==No goto exit
+if %op%==no goto exit
+if %op%==n goto exit
+echo Incorrect input, try again.
+timeout /t 1 >nul
+goto ToS
 
 REM Self Admin Check
 :SelfAdminTest
@@ -175,7 +199,7 @@ IF %ERRORLEVEL% EQU 0 (
 REM GREETING MENU
 :menu
 mode con:cols=90 lines=30
-cd C:\WinBOLT\
+cd C:\WinBOLT\repo\
 color a
 cls
 
@@ -188,7 +212,7 @@ echo.
 echo     1)  Install Chocolatey
 echo     2)  Run Windows Update and Chocolatey Updates
 echo     3)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
-echo     4)  Tune Up - Delete Temp, Run CCLeaner, EEK update/scan/removal.
+echo     4)  Tune Up - Delete Temp, Run CCLeaner, EEK+Sophos update/scan/removal.
 echo     5)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
 echo     6) *All Of The Above - Full Blown System Maintenance
 echo.
@@ -217,7 +241,7 @@ goto menu
 
 
 :menu2
-cd C:\WinBOLT\
+cd C:\WinBOLT\repo\
 color a
 cls
 
@@ -315,8 +339,8 @@ echo.
 echo Windows Update Output:
 echo    C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log
 echo.
-Cscript.exe C:\WinBOLT\winups.vbs > C:\WinBOLT\recent_windows_update.log
-copy "C:\WinBOLT\recent_windows_update.log" "C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log"
+Cscript.exe C:\WinBOLT\repo\winups.vbs > C:\WinBOLT\live_windows_update.log
+copy "C:\WinBOLT\live_windows_update.log" "C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log"
 
 
 cls
@@ -335,9 +359,10 @@ echo       Installing Maintenance Script Autoschedule; Please Wait!
 echo.
 echo.
 
-REM MONTHLY MAINTENANCE - 30TH AND 15TH OF MONTH
+REM MONTHLY MAINTENANCE - 01TH AND 16TH OF MONTH at 10:00PM
 1>nul 2>nul schtasks /delete /tn WinBOLT-Monthly-Maintenance /f
-1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.vbs" /f
+1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 01;16 /st 22:00 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\repo\monthly.vbs" /RU "system" /RL HIGHEST /f
+
 
 cls
 echo COMPLETED - Maintenance Script Autoschedule
@@ -406,6 +431,21 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
 del %systemroot%\System32\spool\printers\* /Q /F /S
+
+REM Sophos Scanner
+echo      ###############################################
+echo      -Running Sophos, cancel anytime with (Ctr + C)-
+echo      ###############################################
+echo.
+echo.
+del /f /q "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" >nul 2>&1
+For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set xdate=%%a.%%b.%%c)
+For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
+pushd "C:\WinBOLT\Sophos\"
+svrtcli.exe -yes -debug
+copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
+
+
 cls
 echo.
 echo.
@@ -525,8 +565,8 @@ echo.
 echo.
 For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mdate=%%a.%%b.%%c)
 For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mtime=%%a.%%b)
-Cscript.exe C:\WinBOLT\winups.vbs > C:\WinBOLT\recent_windows_update.log
-copy "C:\WinBOLT\recent_windows_update.log" "C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log"
+Cscript.exe C:\WinBOLT\repo\winups.vbs > C:\WinBOLT\live_windows_update.log
+copy "C:\WinBOLT\live_windows_update.log" "C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log"
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 echo.
 choco update -y
@@ -578,11 +618,38 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
-REM MONTHLY MAINTENANCE - 30TH AND 15TH OF MONTH
+REM MONTHLY MAINTENANCE - 01TH AND 16TH OF MONTH at 10:00PM
 1>nul 2>nul schtasks /delete /tn WinBOLT-Monthly-Maintenance /f
-1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.vbs" /f
+1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 01;16 /st 22:00 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\repo\monthly.vbs" /RU "system" /RL HIGHEST /f
+
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
+
+cls
+REM Sophos Scanner
+echo      ###############################################
+echo      -Running Sophos, cancel anytime with (Ctr + C)-
+echo      ###############################################
+echo.
+echo.
+del /f /q "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" >nul 2>&1
+For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set xdate=%%a.%%b.%%c)
+For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
+pushd "C:\WinBOLT\Sophos\"
+svrtcli.exe -yes -debug
+copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
+
+
+cls
+echo.
+echo.
+echo.
+echo    ###############################################################
+echo    -Running DEEP EmsiSoft EEK scan, cancel anytime with (Ctr + C)-
+echo    ###############################################################
+echo.
+echo.
+echo.
 pushd "C:\WinBOLT\EEK\"
 a2cmd.exe /update
 set hr=%time:~0,2%
@@ -623,8 +690,8 @@ echo.
 echo.
 For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mdate=%%a.%%b.%%c)
 For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mtime=%%a.%%b)
-Cscript.exe C:\WinBOLT\winups.vbs > C:\WinBOLT\recent_windows_update.log
-copy "C:\WinBOLT\recent_windows_update.log" "C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log"
+Cscript.exe C:\WinBOLT\repo\winups.vbs > C:\WinBOLT\live_windows_update.log
+copy "C:\WinBOLT\live_windows_update.log" "C:\WinBOLT\Backups\Logs\%mdate%_%mtime%_Windows_Update.log"
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 echo.
 choco update -y
@@ -676,9 +743,10 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
-REM MONTHLY MAINTENANCE - 30TH AND 15TH OF MONTH
+REM MONTHLY MAINTENANCE - 01TH AND 16TH OF MONTH at 10:00PM
 1>nul 2>nul schtasks /delete /tn WinBOLT-Monthly-Maintenance /f
-1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 30;15 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\monthly.vbs" /f
+1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 01;16 /st 22:00 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\repo\monthly.vbs" /RU "system" /RL HIGHEST /f
+
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
 del %systemroot%\System32\spool\printers\* /Q /F /S
@@ -1520,7 +1588,7 @@ goto 7
 :8
 cls
 
-cd C:\WinBOLT\
+cd C:\WinBOLT\repo\
 Set /P op=Provide the new desired Computer name:
 IF  "%op%"==""GOTO Error
 rename.vbs %op%
@@ -1534,106 +1602,22 @@ goto menu
 :9
 cls
 
+pushd "C:\WinBOLT\repo"
+start hwinfo.bat
 echo.
 echo.
-echo      Getting system information.
+echo    ########################################
+echo    # WinBOLT v%Current_Version% - WinBOLT System Info - #
+echo    ########################################
 echo.
 echo.
-echo.
-echo      Please scroll up and down to view!
-echo.
+echo Please wait, your system info will display shortly.
 echo.
 echo.
 echo.
 echo.
 timeout /t 6 >nul
-goto hardwareinfo
 
-:hardwareinfo
-cls
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo.
-echo Full BIOS Information:
-echo ----------------------
-wmic BIOS get Manufacturer,Name,SMBIOSBIOSVersion,Version
-echo.
-echo Motherboard Information:
-echo ------------------------
-wmic baseboard get product, Manufacturer, version, serialnumber
-echo.
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo.
-echo Processor Chipset Information:
-echo ------------------------------
-wmic CPU get Name,NumberOfCores
-wmic cpu get CurrentClockSpeed,MaxClockSpeed
-echo.
-echo Processor physical bit architecture:
-echo ------------------------------------
-wmic cpu get AddressWidth | findstr /V AddressWidth
-echo.
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo.
-echo Windows Operating System Information:
-echo -------------------------------------
-wmic OS get Caption,CSDVersion,OSArchitecture,Version
-echo.
-echo Windows Installation Date:
-echo --------------------------
-systeminfo | findstr /C:"Original"
-echo.
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo.
-echo RAM - Physical DIMM Slot Information:
-echo ------------------------------------
-wmic memorychip get Manufacturer, PartNumber, SerialNumber
-systeminfo | findstr /C:"Total Physical Memory"
-echo.
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo.
-echo Hard Drive Disk Interface - Name -  S.M.A.R.T Status:
-echo ----------------------------------------------------
-wmic DISKDRIVE get InterfaceType, Caption, Size, Status
-echo.
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo.
-echo Graphical Devices - Driver Version
-echo ----------------------------------
-wmic PATH Win32_VideoController GET Description,DriverVersion | findstr /V LogMeIn
-echo.
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo.
-echo Network Interface Card Information:
-echo [TRUE=Active NIC] [FALSE=Inactive NIC]
-echo --------------------------------------
-wmic NIC get Description,MACAddress,NetEnabled | findstr "TRUE"
-wmic NIC get Description,MACAddress,NetEnabled | findstr "FALSE"
-echo.
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo.
-echo Dell Service Tag:
-echo -----------------
-wmic bios get serialnumber
-echo.
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-echo ******************************************************************
-echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 set /p op=Go back to menu? (Y or N)
 if %op%==Y  goto menu
@@ -1647,8 +1631,8 @@ goto exit
 :10
 REM local backup script
 cls
-pushd "C:\WinBOLT\"
-Cscript.exe C:\WinBOLT\wink.vbs
+pushd "C:\WinBOLT\repo"
+Cscript.exe C:\WinBOLT\repo\wink.vbs
 echo.
 echo    ###############################################################
 echo    # WinBOLT v%Current_Version% - Backup Local Machine - GitHub.com/OnlineLabs #
@@ -1798,7 +1782,7 @@ goto altmenu
 
 :altmenu
 REM Alternative Menu to alert users backups have been completed.
-cd C:\WinBOLT\
+cd C:\WinBOLT\repo\
 color 8A
 echo.
 echo    ######################################################################
@@ -1836,7 +1820,7 @@ timeout /t 1 >nul
 goto menu
 
 :11
-pushd "C:\WinBOLT\"
+pushd "C:\WinBOLT\repo\"
 color a
 cls
 
@@ -1855,7 +1839,7 @@ echo.
 echo.
 echo.
 echo.
-Cscript.exe C:\WinBOLT\winkpop.vbs
+Cscript.exe C:\WinBOLT\repo\winkpop.vbs
 set /p op=Go back to menu? (Y or N)
 if %op%==Y  goto menu
 if %op%==Y goto menu
