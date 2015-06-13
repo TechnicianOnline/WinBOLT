@@ -106,6 +106,12 @@ REM This will disable UAC. It's required for WinBOLT.
 REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
 
+REM This will disable all sleep/hibernation/monitor timeout counters.
+powercfg -change -monitor-timeout-ac 0
+powercfg -change -standby-timeout-ac 0
+powercfg -change -disk-timeout-ac 0
+powercfg -change -hibernate-timeout-ac 0
+
 
 cls
 color a
