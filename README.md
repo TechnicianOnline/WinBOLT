@@ -40,7 +40,7 @@ Using this will allow you to install applications directly through Chocolatey Nu
 Using this with option #3 allows it to run each month, option #6 also covers option #2 and option #7.
 
 Options #3
-Will create a Windows Task to run C:\WinBOLT\monthly.bat each 30'th and 15'th of the month.
+Will create a Windows Task to run C:\WinBOLT\xmonth.bat each 1'rst and 15'th of the month at 10PM.
 Using this will allow handsfree maintenance on all the computers you want.
 monthly.bat will run Windows Updates, ccleaner and allow Emsisoft CLS to run in the background.
 
