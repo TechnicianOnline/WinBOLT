@@ -11,7 +11,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-SET LAST_UPDATED=06.04.2015
+SET LAST_UPDATED=06.16.2015
 SET Current_Version=3.0
 SET wsize=10096
 REM ###################################################################################################################
@@ -66,15 +66,22 @@ REM **v3.0: added sophos scanner engine
 REM **v3.0: adjusted monthly maintenance to 10PM each 1/16
 REM **v3.0: added offical license and TAC
 REM **v3.0: Updated documentation/guide
-REM **v3.0: placed support scripts within /repo dir.
+REM **v3.0: placed support scripts within repo directory.
+REM **v3.0: Updated monthly.bat to xmonth.bat with improvments.
+REM **v3.0: added desktop shortcut
+REM **v3.0: added vipre scanner
 REM ###################################################################################################################
 REM ###################################################################################################################
 
 color 5
 title (- WinBOLTv%Current_Version% - GitHub.com/OnlineLabs -)
 
-for %%R in (C:\WinBOLT\WinBOLT.cmd) do if %%~zR LSS %wsize% goto copy
-goto Verification
+:shortcut
+IF EXIST %USERPROFILE%\Desktop\WinBOLT.lnk (
+    1>nul 2>nul del /f %USERPROFILE%\Desktop\WinBOLT.lnk
+) else (
+    goto copy
+)
 
 :copy
 IF EXIST C:\WinBOLT\Backups\Logs GOTO fileman
@@ -85,20 +92,11 @@ IF EXIST C:\WinBOLT\Backups\Logs GOTO fileman
 :fileman
 1>nul 2>nul del /f C:\WinBOLT\README.md
 1>nul 2>nul del /f C:\WinBOLT\monthly.bat
-1>nul 2>nul del /f C:\WinBOLT\WinBOLT.cmd
+1>nul 2>nul del /f C:\WinBOLT\monthly.vbs
+1>nul 2>nul del /f C:\WinBOLT\repo\monthly.bat
+1>nul 2>nul del /f C:\WinBOLT\repo\monthly.vbs
 1>nul 2>nul del /f C:\Windows\System32\WinBOLT.cmd
-1>nul 2>nul xcopy /Q /J /Y /Z "monthly.bat" "C:\WinBOLT\repo\"
-1>nul 2>nul xcopy /Q /J /Y /Z "monthly.vbs" "C:\WinBOLT\repo\"
-1>nul 2>nul xcopy /Q /J /Y /Z "rename.vbs" "C:\WinBOLT\repo\"
-1>nul 2>nul xcopy /Q /J /Y /Z "LICENSE" "C:\WinBOLT\repo\"
-1>nul 2>nul xcopy /Q /J /Y /Z "README.md" "C:\WinBOLT\repo\"
-1>nul 2>nul xcopy /Q /J /Y /Z "wink.vbs" "C:\WinBOLT\repo\"
-1>nul 2>nul xcopy /Q /J /Y /Z "winkpop.vbs" "C:\WinBOLT\repo\"
-1>nul 2>nul xcopy /Q /J /Y /Z "winups.vbs" "C:\WinBOLT\repo\"
-1>nul 2>nul xcopy /Q /J /Y /Z "%0" "C:\WinBOLT\"
 1>nul 2>nul xcopy /Q /J /Y /Z "%0" "C:\Windows\System32\"
-echo Preparing system requirements........
-1>nul 2>nul robocopy EEK C:\WinBOLT\EEK\ /MIR /R:10
 cls
 
 :Verification
@@ -218,7 +216,7 @@ echo.
 echo     1)  Install Chocolatey
 echo     2)  Run Windows Update and Chocolatey Updates
 echo     3)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
-echo     4)  Tune Up - Delete Temp, Run CCLeaner, EEK+Sophos update/scan/removal.
+echo     4)  Tune Up - Delete Temp, Run CCLeaner, Vipre+EEK+Sophos update/scan/removal.
 echo     5)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
 echo     6) *All Of The Above - Full Blown System Maintenance
 echo.
@@ -367,7 +365,7 @@ echo.
 
 REM MONTHLY MAINTENANCE - 01TH AND 16TH OF MONTH at 10:00PM
 1>nul 2>nul schtasks /delete /tn WinBOLT-Monthly-Maintenance /f
-1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 01;16 /st 22:00 /TN "WinBOLT-Monthly-Maintenance" /TR "C:\WinBOLT\repo\monthly.vbs" /RU "system" /RL HIGHEST /f
+1>nul 2>nul SCHTASKS /Create /SC MONTHLY /D 01;16 /st 22:00 /TN "WinBOLT-Month-Maintenance" /TR "C:\WinBOLT\repo\xmonth.vbs" /RU "system" /RL HIGHEST /f
 
 
 cls
@@ -383,7 +381,7 @@ cls
 echo.
 echo.
 echo       Windows Tune Up, Please Wait!
-REM Installs CCLEANER+Config/RunsEEK+Updates/DelTempFiles/RunsCustomCCleaner
+REM Installs CCLEANER+Config/Runs Sophos/Vipre/EEK+Updates/DelTempFiles/RunsCustomCCleaner
 echo.
 echo.
 echo.
@@ -464,10 +462,23 @@ echo.
 echo.
 pushd "C:\WinBOLT\EEK\"
 a2cmd.exe /update
-set hr=%time:~0,2%
-if "%hr:~0,1%" equ " " set hr=0%hr:~1,1%
-Set output=File Scan_%date:~-4,4%%date:~-10,2%%date:~-7,2%_%hr%%time:~3,2%%time:~6,2%.txt
-"C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\" /d
+"C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" /d
+copy "C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Emsisoft_Scan.log"
+
+cls
+echo.
+echo.
+echo.
+echo    ###################################################
+echo    -Running Vipre Scan, cancel anytime with (Ctr + C)-
+echo    ###################################################
+echo.
+echo.
+echo.
+pushd "C:\WinBOLT\Vipre\"
+VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
+copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
+
 
 cls
 echo COMPLETED - Windows Tune up!
@@ -658,10 +669,23 @@ echo.
 echo.
 pushd "C:\WinBOLT\EEK\"
 a2cmd.exe /update
-set hr=%time:~0,2%
-if "%hr:~0,1%" equ " " set hr=0%hr:~1,1%
-Set output=File Scan_%date:~-4,4%%date:~-10,2%%date:~-7,2%_%hr%%time:~3,2%%time:~6,2%.txt
-"C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\" /d
+"C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" /d
+copy "C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Emsisoft_Scan.log"
+
+cls
+echo.
+echo.
+echo.
+echo    ###################################################
+echo    -Running Vipre Scan, cancel anytime with (Ctr + C)-
+echo    ###################################################
+echo.
+echo.
+echo.
+pushd "C:\WinBOLT\Vipre\"
+VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
+copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
+
 sfc /scannow
 echo y|chkdsk /f /r C:
 defrag c: /h /x
@@ -756,12 +780,50 @@ REM MONTHLY MAINTENANCE - 01TH AND 16TH OF MONTH at 10:00PM
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
 del %systemroot%\System32\spool\printers\* /Q /F /S
+
+cls
+REM Sophos Scanner
+echo      ###############################################
+echo      -Running Sophos, cancel anytime with (Ctr + C)-
+echo      ###############################################
+echo.
+echo.
+del /f /q "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" >nul 2>&1
+For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set xdate=%%a.%%b.%%c)
+For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
+pushd "C:\WinBOLT\Sophos\"
+svrtcli.exe -yes -debug
+copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
+
+cls
+echo.
+echo.
+echo.
+echo    ###############################################################
+echo    -Running DEEP EmsiSoft EEK scan, cancel anytime with (Ctr + C)-
+echo    ###############################################################
+echo.
+echo.
+echo.
 pushd "C:\WinBOLT\EEK\"
 a2cmd.exe /update
-set hr=%time:~0,2%
-if "%hr:~0,1%" equ " " set hr=0%hr:~1,1%
-Set output=File Scan_%date:~-4,4%%date:~-10,2%%date:~-7,2%_%hr%%time:~3,2%%time:~6,2%.txt
-"C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\" /d
+"C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" /d
+copy "C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Emsisoft_Scan.log"
+
+cls
+echo.
+echo.
+echo.
+echo    ###################################################
+echo    -Running Vipre Scan, cancel anytime with (Ctr + C)-
+echo    ###################################################
+echo.
+echo.
+echo.
+pushd "C:\WinBOLT\Vipre\"
+VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
+copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
+
 sfc /scannow
 echo y|chkdsk /f /r C:
 REM SHUTDOWN TIME 10MINS
@@ -1741,14 +1803,14 @@ echo [Data transferring in the background. You will be alerted once finished.]
 1>nul 2>nul timeout /t 5
  
 echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" > %dest%\%profile%.log
-echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
-echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
-echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
-echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
-echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
-echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
-echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
-echo Y|xcopy /Q /J /Y /Z "%source01%" "%dest%\Documents\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source02%" "%dest%\Contacts\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source03%" "%dest%\Downloads\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source04%" "%dest%Favorites\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source05%" "%dest%\Links\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source06%" "%dest%\Music\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source07%" "%dest%\Pictures\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source08%" "%dest%\Videos\" >> %dest%\%profile%.log
+echo Y|xcopy /Q /J /Y /Z "%source09%" "%dest%\AppData\" >> %dest%\%profile%.log
 
 echo. ##########################################################>> %dest%\%profile%.log
 echo. ##########################################################>> %dest%\%profile%.log
@@ -1799,7 +1861,7 @@ echo.
 echo     1)  Install Chocolatey
 echo     2)  Run Windows Update and Chocolatey Updates
 echo     3)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
-echo     4)  Tune Up - Delete Temp, Run CCLeaner, EEK update/scan/removal.
+echo     4)  Tune Up - Delete Temp, Run CCLeaner, Sophos/Vipre/EEK update/scan/removal.
 echo     5)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
 echo     6) *All Of The Above - Full Blown System Maintenance
 echo.
@@ -1884,7 +1946,8 @@ echo                           s-   ````./+/       :s`     .y
 echo                          +o`-+/////-`          .y.    s:             
 echo                         `d++-                   `y`  -y              
 FOR /L %%n IN (1,1,10) DO ping -n 1 127.0.0.1 > nul & <nul set /p =.
-FOR /L %%n IN (1,1,10) DO ping -n 1 127.0.0.1 > nul & <nul set /p =.
+timeout /t 5 >nul
+
 cls
 color cf
 echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1903,13 +1966,16 @@ echo Current Version: %Current_Version%
 echo.
 echo This tool is created by a Technician for the Technicians.
 echo This will simplify your job on the Windows Operating System.
-echo The maintenance work more often than not becomes perpetual.
-echo My ultimate goal and function of WinBOLT was to automate
-echo the standard process of annoying Windows Updates, Malware Scans
-echo running CCleaner and other misc useful tools.
+echo Working with these systems, more often than not tasks like maintenance becomes perpetual.
 echo.
-echo This tool is simple, effective and very useful.
+echo With that in mind, my ultimate goal and function of WinBOLT was simple..
+echo Provide and deliever fool proof automation.
 echo.
+echo This tool is simple, effective and powerful.
+echo.
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+echo Thanks To: @Roman @Devon @Alextrasza @Aura
+echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 FOR /L %%n IN (1,1,10) DO ping -n 2 127.0.0.1 > nul & <nul set /p =.
 echo.
 pause
