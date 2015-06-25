@@ -100,10 +100,29 @@ IF EXIST C:\WinBOLT\Backups\Logs GOTO fileman
 cls
 
 :Verification
-REM This will disable UAC. It's required for WinBOLT.
+
+setlocal
+for /f "tokens=4-5 delims=[.XP" %%i in ('ver') do set VERSION=%%i.%%j
+REM Windows 10
+if "%version%" == "10.0" goto power
+REM Windows 8.1
+if "%version%" == "6.3" goto power
+REM Windows 8
+if "%version%" == "6.2" goto power
+REM Windows 7
+if "%version%" == "6.1" goto uac
+REM Windows Vista
+if "%version%" == "6.0" goto uac
+REM Windows XP
+if "%version%" == "5.1" goto uac
+endlocal
+
+:uac
+REM This will disable UAC. It's required for WinBOLT but not needed on Windows 8 and above.
 REG ADD HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f
 REG ADD HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0x0 /f
 
+:power
 REM This will disable all sleep/hibernation/monitor timeout counters.
 powercfg -change -monitor-timeout-ac 0
 powercfg -change -standby-timeout-ac 0
@@ -144,6 +163,7 @@ timeout /t 1 >nul
 
 
 :ToS
+REM Terms as Stated
 cls
 color CF
 echo.
@@ -216,7 +236,7 @@ echo.
 echo     1)  Install Chocolatey
 echo     2)  Run Windows Update and Chocolatey Updates
 echo     3)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
-echo     4)  Tune Up - Delete Temp, Run CCLeaner, Vipre+EEK+Sophos update/scan/removal.
+echo     4)  Delete Temp, Run CCleaner, EEK update/scan/virus removal.
 echo     5)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
 echo     6) *All Of The Above - Full Blown System Maintenance
 echo.
@@ -255,13 +275,64 @@ echo    # WinBOLT v%Current_Version% - Maintenance Automation Tool - GitHub.com/
 echo    ######################################################################
 echo    (Last Updated: %Last_Updated%)
 echo.
-echo                        Second Menu - Optional Task
+echo                        Second Menu - Misc Options
 echo.
 echo     7)  Install Custom Applications
-echo     8)  Rename Computer Host Name
-echo     9)  Get Hardware Information
-echo    10)  Backup User Account and Windows Serial Key (XP Not Supported)
-echo    11)  Extract Windows Serial Key
+echo     8)  Get Hardware Information
+echo     9)  Special Tools & Actions
+echo.
+echo     I)  Information on WinBOLT
+echo     R)  Return to the first menu
+echo     X)  Exit WinBOLT
+echo.
+echo.
+echo.
+echo.
+set /p op=I Select Number #
+if %op%==7  goto 7
+if %op%==8  goto 8
+if %op%==9  goto menu3
+if %op%==10 goto 10
+if %op%==11 goto 11
+if %op%==12 goto 12
+if %op%==13 goto 13
+if %op%==14 goto 14
+if %op%==15 goto 15
+if %op%==16 goto 16
+if %op%==i goto intel
+if %op%==I goto intel
+if %op%==r goto menu
+if %op%==R goto menu
+if %op%==X goto exit
+if %op%==x goto exit
+if %op%==quit goto exit
+if %op%==Q goto exit
+if %op%==q goto exit
+echo Incorrect input, try again.
+timeout /t 1 >nul
+goto menu2
+
+:menu3
+cd C:\WinBOLT\repo\
+color a
+cls
+
+echo.
+echo    ######################################################################
+echo    # WinBOLT v%Current_Version% - Maintenance Automation Tool - GitHub.com/OnlineLabs #
+echo    ######################################################################
+echo    (Last Updated: %Last_Updated%)
+echo.
+echo                        Special Tools & Actions Menu
+echo.
+echo    rename)  Rename Computer Host Name
+echo    backup)  Backup User Account and Windows Serial Key (XP Not Supported)
+echo    key)  Extract Windows Serial Key
+echo    spool) Printer - Clear System Spools
+echo    sophos) scan machine with sophos antivirus
+echo    vipre) scan machine with vipre antivirus
+echo    both) scan with both Vipre and Sophos
+echo    
 echo.
 echo     I)  Information on WinBOLT
 echo     R)  Return to the first menu
@@ -381,7 +452,7 @@ cls
 echo.
 echo.
 echo       Windows Tune Up, Please Wait!
-REM Installs CCLEANER+Config/Runs Sophos/Vipre/EEK+Updates/DelTempFiles/RunsCustomCCleaner
+REM Installs CCleaner + custom config.int/Runs deep EEK virus scan/Updates/DelTempFiles
 echo.
 echo.
 echo.
@@ -434,20 +505,8 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
-del %systemroot%\System32\spool\printers\* /Q /F /S
 
-REM Sophos Scanner
-echo      ###############################################
-echo      -Running Sophos, cancel anytime with (Ctr + C)-
-echo      ###############################################
-echo.
-echo.
-del /f /q "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" >nul 2>&1
-For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set xdate=%%a.%%b.%%c)
-For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
-pushd "C:\WinBOLT\Sophos\"
-svrtcli.exe -yes -debug
-copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
+
 
 
 cls
@@ -465,19 +524,6 @@ a2cmd.exe /update
 "C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" /d
 copy "C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Emsisoft_Scan.log"
 
-cls
-echo.
-echo.
-echo.
-echo    ###################################################
-echo    -Running Vipre Scan, cancel anytime with (Ctr + C)-
-echo    ###################################################
-echo.
-echo.
-echo.
-pushd "C:\WinBOLT\Vipre\"
-VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
-copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
 
 
 cls
@@ -643,21 +689,6 @@ cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
 
 cls
-REM Sophos Scanner
-echo      ###############################################
-echo      -Running Sophos, cancel anytime with (Ctr + C)-
-echo      ###############################################
-echo.
-echo.
-del /f /q "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" >nul 2>&1
-For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set xdate=%%a.%%b.%%c)
-For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
-pushd "C:\WinBOLT\Sophos\"
-svrtcli.exe -yes -debug
-copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
-
-
-cls
 echo.
 echo.
 echo.
@@ -671,20 +702,6 @@ pushd "C:\WinBOLT\EEK\"
 a2cmd.exe /update
 "C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" /d
 copy "C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Emsisoft_Scan.log"
-
-cls
-echo.
-echo.
-echo.
-echo    ###################################################
-echo    -Running Vipre Scan, cancel anytime with (Ctr + C)-
-echo    ###################################################
-echo.
-echo.
-echo.
-pushd "C:\WinBOLT\Vipre\"
-VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
-copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
 
 sfc /scannow
 echo y|chkdsk /f /r C:
@@ -779,21 +796,6 @@ REM MONTHLY MAINTENANCE - 01TH AND 16TH OF MONTH at 10:00PM
 
 cd C:\Program Files\CCleaner\
 ccleaner.exe /clean
-del %systemroot%\System32\spool\printers\* /Q /F /S
-
-cls
-REM Sophos Scanner
-echo      ###############################################
-echo      -Running Sophos, cancel anytime with (Ctr + C)-
-echo      ###############################################
-echo.
-echo.
-del /f /q "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" >nul 2>&1
-For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set xdate=%%a.%%b.%%c)
-For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
-pushd "C:\WinBOLT\Sophos\"
-svrtcli.exe -yes -debug
-copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
 
 cls
 echo.
@@ -810,19 +812,6 @@ a2cmd.exe /update
 "C:\WinBOLT\EEK\a2cmd.exe" /f=C /deep /rk /m /t /a /n /ac /l="C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" /d
 copy "C:\WinBOLT\EEK\Logs\Live_Emsisoft_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Emsisoft_Scan.log"
 
-cls
-echo.
-echo.
-echo.
-echo    ###################################################
-echo    -Running Vipre Scan, cancel anytime with (Ctr + C)-
-echo    ###################################################
-echo.
-echo.
-echo.
-pushd "C:\WinBOLT\Vipre\"
-VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
-copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
 
 sfc /scannow
 echo y|chkdsk /f /r C:
@@ -1653,7 +1642,7 @@ pause
 goto 7
 
 
-:8
+:rename
 cls
 
 cd C:\WinBOLT\repo\
@@ -1667,7 +1656,7 @@ timeout /t 5 >nul
 goto menu
 
 
-:9
+:8
 cls
 
 pushd "C:\WinBOLT\repo"
@@ -1696,7 +1685,7 @@ if %op%==y goto menu
 goto exit
 
 
-:10
+:backup
 REM local backup script
 cls
 pushd "C:\WinBOLT\repo"
@@ -1861,9 +1850,12 @@ echo.
 echo     1)  Install Chocolatey
 echo     2)  Run Windows Update and Chocolatey Updates
 echo     3)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
-echo     4)  Tune Up - Delete Temp, Run CCLeaner, Sophos/Vipre/EEK update/scan/removal.
+echo     4)  Delete Temp, Run CCleaner, EEK update/scan/virus removal.
 echo     5)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
 echo     6) *All Of The Above - Full Blown System Maintenance
+echo.
+echo.    N)  Second Menu
+echo     X)  Exit
 echo.
 echo.    N)  Second Menu
 echo     X)  Exit
@@ -1887,7 +1879,7 @@ echo Incorrect input, please try again.
 timeout /t 1 >nul
 goto menu
 
-:11
+:key
 pushd "C:\WinBOLT\repo\"
 color a
 cls
@@ -1915,6 +1907,48 @@ if %op%==Yes goto menu
 if %op%==yes goto menu
 if %op%==y goto menu
 goto exit
+
+
+
+:spool
+cls
+del %systemroot%\System32\spool\printers\* /Q /F /S
+echo Printer Spool Clear - COMPLETED
+timeout /t 2 >nul
+cls
+goto menu3
+
+:vipre
+REM Vipre Scanner
+cls
+echo.
+echo.
+echo.
+echo    ###################################################
+echo    -Running Vipre Scan, cancel anytime with (Ctr + C)-
+echo    ###################################################
+echo.
+echo.
+echo.
+pushd "C:\WinBOLT\Vipre\"
+VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
+copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
+
+:sophos
+REM Sophos Scanner
+echo      ###############################################
+echo      -Running Sophos, cancel anytime with (Ctr + C)-
+echo      ###############################################
+echo.
+echo.
+del /f /q "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" >nul 2>&1
+For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set xdate=%%a.%%b.%%c)
+For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
+pushd "C:\WinBOLT\Sophos\"
+svrtcli.exe -yes -debug
+copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
+
+
 
 :intel
 cls
