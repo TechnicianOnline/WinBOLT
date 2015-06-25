@@ -8,4 +8,4 @@ Set objStartup = objWMIService.Get("Win32_ProcessStartup")
 Set objConfig = objStartup.SpawnInstance_ 
 objConfig.ShowWindow = HIDDEN_WINDOW 
 Set objProcess = GetObject("winmgmts:root\cimv2:Win32_Process") 
-errReturn = objProcess.Create("C:\WinBOLT\monthly.bat", null, objConfig, intProcessID)
+errReturn = objProcess.Create("C:\WinBOLT\repo\xmonth.bat", null, objConfig, intProcessID)
