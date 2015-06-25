@@ -235,7 +235,7 @@ echo    (Last Updated: %Last_Updated%)
 echo.
 echo     1)  Install Chocolatey
 echo     2)  Run Windows Update and Chocolatey Updates
-echo     3)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
+echo     3)  Enable Maintenance Script (Runs Monthly Each 1/16th @ 10PM)
 echo     4)  Delete Temp, Run CCleaner, EEK update/scan/virus removal.
 echo     5)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
 echo     6) *All Of The Above - Full Blown System Maintenance
@@ -325,13 +325,13 @@ echo    (Last Updated: %Last_Updated%)
 echo.
 echo                        Special Tools & Actions Menu
 echo.
-echo    rename)  Rename Computer Host Name
-echo    backup)  Backup User Account and Windows Serial Key (XP Not Supported)
-echo    key)  Extract Windows Serial Key
-echo    spool) Printer - Clear System Spools
-echo    sophos) scan machine with sophos antivirus
-echo    vipre) scan machine with vipre antivirus
-echo    both) scan with both Vipre and Sophos
+echo    10)  Rename Computer Host Name
+echo    11)  Backup User Account and Windows Serial Key (XP Not Supported)
+echo    12)  Extract Windows Serial Key
+echo    13)  Printer - Clear System Spools
+echo    14)  scan machine with sophos antivirus
+echo    15)  scan machine with vipre antivirus
+echo    16)  scan with both Vipre and Sophos
 echo    
 echo.
 echo     I)  Information on WinBOLT
@@ -344,7 +344,7 @@ echo.
 set /p op=I Select Number #
 if %op%==7  goto 7
 if %op%==8  goto 8
-if %op%==9  goto 9
+if %op%==9  goto menu3
 if %op%==10 goto 10
 if %op%==11 goto 11
 if %op%==12 goto 12
@@ -1642,7 +1642,7 @@ pause
 goto 7
 
 
-:rename
+:10
 cls
 
 cd C:\WinBOLT\repo\
@@ -1685,7 +1685,7 @@ if %op%==y goto menu
 goto exit
 
 
-:backup
+:10
 REM local backup script
 cls
 pushd "C:\WinBOLT\repo"
@@ -1879,7 +1879,7 @@ echo Incorrect input, please try again.
 timeout /t 1 >nul
 goto menu
 
-:key
+:12
 pushd "C:\WinBOLT\repo\"
 color a
 cls
@@ -1910,7 +1910,7 @@ goto exit
 
 
 
-:spool
+:13
 cls
 del %systemroot%\System32\spool\printers\* /Q /F /S
 echo Printer Spool Clear - COMPLETED
@@ -1918,7 +1918,26 @@ timeout /t 2 >nul
 cls
 goto menu3
 
-:vipre
+
+:14
+cls
+REM Sophos Scanner
+echo      ###############################################
+echo      -Running Sophos, cancel anytime with (Ctr + C)-
+echo      ###############################################
+echo.
+echo.
+del /f /q "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" >nul 2>&1
+For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set xdate=%%a.%%b.%%c)
+For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
+pushd "C:\WinBOLT\Sophos\"
+svrtcli.exe -yes -debug
+copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
+
+
+
+:15
+cls
 REM Vipre Scanner
 cls
 echo.
@@ -1934,7 +1953,8 @@ pushd "C:\WinBOLT\Vipre\"
 VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
 copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
 
-:sophos
+:16
+cls
 REM Sophos Scanner
 echo      ###############################################
 echo      -Running Sophos, cancel anytime with (Ctr + C)-
@@ -1947,6 +1967,21 @@ For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
 pushd "C:\WinBOLT\Sophos\"
 svrtcli.exe -yes -debug
 copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
+
+REM Vipre Scanner
+cls
+echo.
+echo.
+echo.
+echo    ###################################################
+echo    -Running Vipre Scan, cancel anytime with (Ctr + C)-
+echo    ###################################################
+echo.
+echo.
+echo.
+pushd "C:\WinBOLT\Vipre\"
+VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
+copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
 
 
 
