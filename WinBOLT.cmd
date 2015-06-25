@@ -215,7 +215,7 @@ echo    (Last Updated: %Last_Updated%)
 echo.
 echo     1)  Install Chocolatey
 echo     2)  Run Windows Update and Chocolatey Updates
-echo     3)  Enable Maintenance Script (Runs Monthly Each 30th/15th)
+echo     3)  Enable Maintenance Script (Runs Monthly Each 1/16th @ 10PM)
 echo     4)  Tune Up - Delete Temp, Run CCLeaner, Vipre+EEK+Sophos update/scan/removal.
 echo     5)  Defrag HDD, Sys File CHK, File Sys CHK (Auto reboot once completed)
 echo     6) *All Of The Above - Full Blown System Maintenance
