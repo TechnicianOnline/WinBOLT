@@ -1,25 +1,32 @@
-###############################################################################################################
-# WinBOLT v2.0
-# Maintenance Automation Tool
-###############################################################################################################
 
-This tool is created by a Technician for the Technicians. This will simplify your job on the Windows Operating System. The maintenance work more often than not becomes perpetual. My ultimate goal and function of WinBOLT was to automate the standard process of annoying Windows Updates, Malware Scanning, running CCleaner and task like backing up the local users files.
 
-This tool is simple, effective and very useful.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*****************************************************  ( - WinBOLT v3.0 - ) *************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This runs the Emsisoft's Commandline Scanner. If this is for personal use you don't have to worry about EEK license. Comercial users must purchase scans directly from Emsisoft.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*********************************************  ( - Maintenance Automation Tool - ) ****************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-###############################################################################################################
-# Instructions
-###############################################################################################################
+This tool is created by a Technician for the Technicians.
+This will simplify your job on the Windows Operating System.
+Working with these systems, more often than not tasks like maintenance becomes perpetual.
+With that in mind, my ultimate goal and function of WinBOLT was simple, fool proof secure automation.
+WinBOLT automats the standard process of annoying Windows Updates, Malware Scans, running CCleaner etc.
+
+This tool is simple, effective and powerful.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+***************************************************** ( - Instructions - ) ****************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To start using WinBOLT, you must run WinBOLT.cmd with Administrator rights.
 
 It's important to know option #6 is the most common option as it does the "full blown maintenance".
 
-###############################################################################################################
-# Details about WinBOLT Options
-###############################################################################################################
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*************************************************** ( - Guide / Menu Options- ) ********************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Options #1
 will install Chocolatey NuGet the Machine Package Manager.
@@ -38,7 +45,7 @@ Using this will allow handsfree maintenance on all the computers you want.
 monthly.bat will run Windows Updates, ccleaner and allow Emsisoft CLS to run in the background.
 
 Options #4
-Will run a basic Windows Tune up. Deleting temp files, running CCLeaner and Emsisoft CLS.
+Will run a basic Windows Tune up. Deleting temp files, running CCLeaner Sophos CLS and Emsisoft CLS.
 Using this will allow you to quickly do basic maintenance quickly, without involving other options above or below.
 
 Options #5
@@ -47,7 +54,7 @@ Will scheduled File System Check on next reboot.
 Using this will really help maintain a Windows Operating System but is a very long proccess.
 Using this will ask for a reboot to complete the File System Check, it will being during startup.
 
-Option #6
+[X] Option #6 (Recommended)
 Will do everything listed above, options #1 through #5.
 Using this will pretty much cover all the basis of Windows Maintenance and is the most common option.
 
@@ -72,3 +79,46 @@ Using this will save you time to gather the users files if you're planning to re
 Option #11
 Will extract the Windows Serial Key.
 Using this will save you time from searching for it and installing programs to do it for you.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+********************************************************  ( - Disclaimer - ) ************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Provided without warranty, either expressed or implied
+Product is licened under GNU General Public v2
+
+This runs the Emsisoft anti-malware CLI and Sophos CLI anti-virus to counter threats effectively.
+Comercial users must purchase license rights each perspective software used by WinBOLT.
+WinBOLT itself is free for the home computers, all else much purchase a license.
+
+Sales Contact: Christian_V@live.com
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+******************************************************  ( - WinBOLT Creator - ) ********************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+License: GNU GENERAL PUBLIC LICENSE
+Created by Christian Vazquez
+Email:Christian_V@live.com 
+Github.com/OnlineLabs
+Created 12/13/14
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*************************************************  ( - Special Thanks To - ) ***************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Roman
+- Awesome feedback and tested out all my crazy beta builds. Great ideas to push and grow WinboLT. Thanks for the motivation. <3
+
+Devon
+- Great help to go into the right direction, suggested new methods and helped refine my code.
+
+Alextrasza
+- Lead to the huge warning of Combofix and fixed many typos, thanks for the proof reading!
+
+Aura
+- Provided the most detailed feedback of anyone, with his suggestion I redesigned the layout of WinBOLT.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*************************************************  ( - Thank you for downloading - ) ***************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
