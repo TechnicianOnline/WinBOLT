@@ -11,7 +11,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-SET LAST_UPDATED=06.16.2015
+SET LAST_UPDATED=06.26.2015
 SET Current_Version=3.0
 SET wsize=10096
 REM ###################################################################################################################
@@ -70,6 +70,8 @@ REM **v3.0: placed support scripts within repo directory.
 REM **v3.0: Updated monthly.bat to xmonth.bat with improvments.
 REM **v3.0: added desktop shortcut
 REM **v3.0: added vipre scanner
+REM **v3.0: added sophos scanner
+REM **v3.0: added malwarebytes antimalware scanner
 REM ###################################################################################################################
 REM ###################################################################################################################
 
@@ -331,11 +333,12 @@ echo    12)  Extract Windows Serial Key
 echo    13)  Printer - Clear System Spools
 echo    14)  scan machine with sophos antivirus
 echo    15)  scan machine with vipre antivirus
-echo    16)  scan with both Vipre and Sophos
+echo    16)  scan machine with malwarebytes antimalware
+echo    17)  scan with all three, Sohpos, Vipre and MalwareBytes Antimalware
 echo    
 echo.
 echo     I)  Information on WinBOLT
-echo     R)  Return to the first menu
+echo     R)  Return to the second menu
 echo     X)  Exit WinBOLT
 echo.
 echo.
@@ -352,10 +355,11 @@ if %op%==13 goto 13
 if %op%==14 goto 14
 if %op%==15 goto 15
 if %op%==16 goto 16
+if %op%==17 goto 17
 if %op%==i goto intel
 if %op%==I goto intel
-if %op%==r goto menu
-if %op%==R goto menu
+if %op%==r goto menu2
+if %op%==R goto menu2
 if %op%==X goto exit
 if %op%==x goto exit
 if %op%==quit goto exit
@@ -1933,7 +1937,8 @@ For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set xtime=%%a.%%b)
 pushd "C:\WinBOLT\Sophos\"
 svrtcli.exe -yes -debug
 copy "%ProgramData%\Sophos\Sophos Virus Removal Tool\Logs\SophosVirusRemovalTool.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Sophos_Scan.log"
-
+cls
+goto menu3
 
 
 :15
@@ -1952,8 +1957,37 @@ echo.
 pushd "C:\WinBOLT\Vipre\"
 VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
 copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
+cls
+goto menu3
 
 :16
+cls
+REM MBAM Scanner
+cls
+echo.
+echo.
+echo.
+echo    #######################################################################
+echo    -Running MalwareBytes Anti-Malware Scan, cancel anytime with (Ctr + C)-
+echo    #######################################################################
+echo.
+echo.
+pushd "C:WinBOLT\repo\"
+mbam.exe /verysilent
+timeout /t 15 >nul
+pushd "C:\Program Files (x86)\Malwarebytes' Anti-Malware\"
+mbam.exe /update
+timeout /t 300 >nul
+tskill /A mbam*
+mbam.exe /logtofolder "C:\WinBOLT\Backups\Logs\"
+mbam.exe /register 3YL75 2B5C-AQHH-CQM9-311G
+mbam.exe /scan -full -remove -log
+tskill /A mbam*
+cls
+goto menu3
+
+:17
+REM All Security Engine Scan
 cls
 REM Sophos Scanner
 echo      ###############################################
@@ -1983,6 +2017,27 @@ pushd "C:\WinBOLT\Vipre\"
 VipreRescueScanner.exe /nolog >> "C:\WinBOLT\Vipre\Live_Vipre_Scan.log"
 copy "C:\WinBOLT\Vipre\Live_Vipre_Scan.log" "C:\WinBOLT\Backups\Logs\%xdate%_%xtime%_Vipre_Scan.log"
 
+cls
+echo.
+echo.
+echo.
+echo    #######################################################################
+echo    -Running MalwareBytes Anti-Malware Scan, cancel anytime with (Ctr + C)-
+echo    #######################################################################
+echo.
+echo.
+pushd "C:WinBOLT\repo\"
+mbam.exe /verysilent
+timeout /t 15 >nul
+pushd "C:\Program Files (x86)\Malwarebytes' Anti-Malware\"
+mbam.exe /update
+timeout /t 300 >nul
+tskill /A mbam*
+mbam.exe /logtofolder "C:\WinBOLT\Backups\Logs\"
+mbam.exe /register 3YL75 2B5C-AQHH-CQM9-311G
+mbam.exe /scan -full -remove -log
+tskill /A mbam*
+cls
 
 
 :intel
