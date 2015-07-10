@@ -40,7 +40,7 @@ Using this will allow you to install applications directly through Chocolatey Nu
 Using this with option #3 allows it to run each month, option #6 also covers option #2 and option #7.
 
 Options #3
-Will create a Windows Task to run C:\WinBOLT\xmonth.bat each 1'rst and 15'th of the month at 10PM.
+Will create a Windows Task to run C:\WinBOLT\monthly.bat each 30'th and 15'th of the month.
 Using this will allow handsfree maintenance on all the computers you want.
 monthly.bat will run Windows Updates, ccleaner and allow Emsisoft CLS to run in the background.
 
@@ -63,13 +63,14 @@ Will offer another menu to install applications as desired.
 Using this will allow a variety of tools at your fingertips to troubleshoot/setup a new/old computer.
 
 Option #8
-Will allow you to rename the computer hostname.
-Use this option to set a new hostname in seconds.
-
-Option #9
 Will provide you very specific and detailed information on the physical hardware of the computer.
 Using this option will save you time from physically opening the computer to get detailed information like model numbers.
 Using this option on Servers running Windows serves especially well, no need to schedule downtime to get hardware info.
+
+
+Option #9
+Special Tools and Actions Menu 
+Misc options that are geared for advanced users.
 
 
 ######
@@ -84,14 +85,38 @@ YOU WILL HAVE TO ENTER OPTION 9 TO CONTINUE TO THE "SPECIAL MENU"
 ######
 ######
 
-Option #10
+Option#10
+Will allow you to rename the computer hostname.
+Use this option to set a new hostname in seconds.
+
+Option #11
 Will run a local backup of the user running WinBOLT and give you the option to select the destination.
 Will backup the entire users profile and extract the Windows Serial Key to re-use on the next activation.
 Using this will save you time to gather the users files if you're planning to re-image the OS.
 
-Option #11
+Option #12
 Will extract the Windows Serial Key.
 Using this will save you time from searching for it and installing programs to do it for you.
+
+Option #13
+This will clear all pending and suspended spools on the machine.
+Common fix for printing issues.
+
+Option #14
+Sophos Virus Removal Tool - Full System Scan
+
+Option #15
+VIPRE Rescue - Full System Scan
+
+Option #16
+MalwareBytes Anti-Malware - Full System Scan
+
+Option #17
+Emsisoft Command Line Scanner - Full System Scan
+
+Option #100 - Thunder Scan
+Full System Scan with all Engines.
+Sophos, Vipre, MalwareBytes and Emsisoft.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************  ( - Disclaimer - ) ************************************************************************
