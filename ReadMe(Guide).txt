@@ -71,6 +71,19 @@ Will provide you very specific and detailed information on the physical hardware
 Using this option will save you time from physically opening the computer to get detailed information like model numbers.
 Using this option on Servers running Windows serves especially well, no need to schedule downtime to get hardware info.
 
+
+######
+######
+######
+######
+######
+YOU WILL HAVE TO ENTER OPTION 9 TO CONTINUE TO THE "SPECIAL MENU"
+######
+######
+######
+######
+######
+
 Option #10
 Will run a local backup of the user running WinBOLT and give you the option to select the destination.
 Will backup the entire users profile and extract the Windows Serial Key to re-use on the next activation.
