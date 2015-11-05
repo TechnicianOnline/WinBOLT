@@ -1,7 +1,7 @@
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*****************************************************  ( - WinBOLT v3.0 - ) *************************************************************************
+*****************************************************  ( - WinBOLT v3.1 - ) *************************************************************************
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,7 +45,7 @@ Using this will allow handsfree maintenance on all the computers you want.
 monthly.bat will run Windows Updates, ccleaner and allow Emsisoft CLS to run in the background.
 
 Options #4
-Will run a basic Windows Tune up. Deleting temp files, running CCLeaner Sophos CLS and Emsisoft CLS.
+Will run a basic Windows Tune up. Deleting temp files, running CCLeaner Sophos CLS, Emsisoft CLS and apply CryptoPreventor
 Using this will allow you to quickly do basic maintenance quickly, without involving other options above or below.
 
 Options #5
@@ -57,6 +57,18 @@ Using this will ask for a reboot to complete the File System Check, it will bein
 [X] Option #6 (Recommended)
 Will do everything listed above, options #1 through #5.
 Using this will pretty much cover all the basis of Windows Maintenance and is the most common option.
+
+######
+######
+######
+######
+######
+YOU WILL HAVE TO ENTER OPTION "N" TO CONTINUE TO THE 2nd Menu!
+######
+######
+######
+######
+######
 
 Option #7
 Will offer another menu to install applications as desired.
@@ -78,12 +90,13 @@ Misc options that are geared for advanced users.
 ######
 ######
 ######
-YOU WILL HAVE TO ENTER OPTION 9 TO CONTINUE TO THE "SPECIAL MENU"
+YOU WILL HAVE TO ENTER OPTION "9" TO CONTINUE TO THE 3rd Menu!
 ######
 ######
 ######
 ######
 ######
+
 
 Option#10
 Will allow you to rename the computer hostname.
@@ -103,20 +116,29 @@ This will clear all pending and suspended spools on the machine.
 Common fix for printing issues.
 
 Option #14
-Sophos Virus Removal Tool - Full System Scan
+RKill - Stops active malware programs
 
 Option #15
-VIPRE Rescue - Full System Scan
+Kaspersky TDSSKilller - Full System Scan
 
 Option #16
-MalwareBytes Anti-Malware - Full System Scan
+Sophos Virus Removal Tool - Full System Scan
 
 Option #17
+VIPRE Rescue - Full System Scan
+
+Option #18
+MalwareBytes Anti-Malware - Full System Scan
+
+Option #19
 Emsisoft Command Line Scanner - Full System Scan
 
+Option #20
+CryptoPreventor - Will apply protection against crypto malware.
+
 Option #100 - Thunder Scan
-Full System Scan with all Engines.
-Sophos, Vipre, MalwareBytes and Emsisoft.
+Full system scan with all resources.
+Rkill, TDRSSKiller, Sophos, Vipre, MalwareBytes, Emsisoft and CryptoPreventor.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ********************************************************  ( - Disclaimer - ) ************************************************************************
@@ -146,13 +168,10 @@ Created 12/13/14
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Roman
-- Awesome feedback and tested out all my crazy beta builds. Great ideas to push and grow WinboLT. Thanks for the motivation. <3
+- Awesome feedback and tested out all my crazy beta builds. Great ideas to push and grow WinBOLT. Thanks for the motivation. <3
 
 Devon
 - Great help to go into the right direction, suggested new methods and helped refine my code.
-
-Alextrasza
-- Lead to the huge warning of Combofix and fixed many typos, thanks for the proof reading!
 
 Aura
 - Provided the most detailed feedback of anyone, with his suggestion I redesigned the layout of WinBOLT.
