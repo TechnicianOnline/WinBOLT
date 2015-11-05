@@ -11,7 +11,7 @@ REM Created 12/13/14
 REM ###################################################################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
-SET LAST_UPDATED=10.30.2015
+SET LAST_UPDATED=11.04.2015
 SET Current_Version=3.1
 SET wsize=10096
 REM ###################################################################################################################
@@ -291,7 +291,7 @@ echo     6) *All Of The Above - Full Blown System Maintenance
 echo.
 echo.
 echo     Reboot now supported, just add "r" to your selection.
-echo     Example: 1r   or   2r   or   124r
+echo     Example: 1r   or   2r   or   24r
 echo.
 echo.
 echo.    N)  Second Menu
