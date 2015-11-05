@@ -12,7 +12,7 @@ REM ############################################################################
 REM ####################################### ( - Current Version and Info - ) ##########################################
 REM ###################################################################################################################
 SET LAST_UPDATED=11.04.2015
-SET Current_Version=3.1
+SET Current_Version=3.2
 SET wsize=10096
 REM ###################################################################################################################
 REM ######################################## ( - Change Log and Version - ) ###########################################
@@ -77,7 +77,7 @@ REM **v3.1: added reboot switchs and mix options
 REM **v3.1: added rkill to option #4, #6 and #9
 REM **v3.1: split WinBOLT core and addon package
 REM **v3.1: added cryptoprevent
-REM **v3.1: refined code
+REM **v3.2: refined code
 REM ###################################################################################################################
 REM ###################################################################################################################
 
@@ -1279,11 +1279,12 @@ echo.
 echo COMPLETED - System will reboot in 10mins to complete changes to file system.
 echo.
 set /p op=Enter Y to cancel IMPORTANT reboot:
-if %op%==Y  goto CancelReboot
+if %op%==Y  goto CanReboot
 goto menu
 
-:CancelReboot
+:CanReboot
 shutdown /a
+cls
 echo.
 echo You have canceled the IMPORTANT reboot. Do it manually SOON!
 echo.
@@ -1313,19 +1314,24 @@ for /F %%a in ('wmic LogicalDisk get DeviceID') do (
 )
 
 :6no
+mode con:cols=100 lines=55
 cls
-
 echo.
 echo.
-echo       First time running? This may be a few hours.
-echo    Consider other options like "24r" if you're pressed for time.
+echo     First time running? This may be a few hours.
 echo.
 echo.
-1>nul 2>nul timeout /t 6
+1>nul 2>nul timeout /t 5
 echo.
 echo.
-echo       Not the first time? This shouldn't be more than an two hours.
-echo   Consider running option "24r" if you're pressed for time.
+echo     Not the first time? This shouldn't be more than two hours.
+echo     (NOTE: Time is drastically affected if your PC is infected.)
+echo.
+echo.
+1>nul 2>nul timeout /t 5
+echo.
+echo.
+echo     Consider running option "24r" if you're pressed for time.
 echo.
 echo.
 1>nul 2>nul timeout /t 5
@@ -1486,7 +1492,7 @@ REM Ends Opt# 2.
 
 REM Start Opt# 5
 echo.
-echo Running System File Check.
+echo    Running System File Check.
 1>nul 2>nul sfc /scannow > C:\WinBOLT\Backups\Logs\live_SysFileCheck.log
 For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mdate=%%a.%%b.%%c)
 For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mtime=%%a.%%b)
@@ -1494,12 +1500,12 @@ For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mtime=%%a.%%b)
 echo FINISHED.
 
 echo.
-echo Scheduling Disk Check on drive %systemdrive%
-1>nul 2>nul echo y|chkdsk /f /r %systemdrive%
-echo Scheduled to start after reboot. Pending.
+echo    Applying disk check on next reboot.
+1>nul 2>nul call:Dcheck
+echo FINISHED.
 
 echo.
-echo HDD detected, running defragmentation on %systemdrive%
+echo    HDD detected, running defragmentation on %systemdrive%
 1>nul 2>nul defrag %systemdrive% /h /x > C:\WinBOLT\Backups\Logs\recent_Defrag.log
 For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mdate=%%a.%%b.%%c)
 For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mtime=%%a.%%b)
@@ -1513,7 +1519,7 @@ REM Ends Opt# 5
 1>nul 2>nul timeout /t 10
 cls
 echo.
-echo COMPLETED - System will reboot in 10mins to complete maintenance.
+echo    COMPLETED - System will reboot in 10mins to complete maintenance.
 echo.
 set /p op=Enter Y to cancel IMPORTANT reboot:
 if %op%==Y  goto CancelReboot
@@ -1529,23 +1535,29 @@ timeout /t 6 >nul
 goto menu
 
 :6yes
+mode con:cols=100 lines=55
 cls
 echo.
-echo      Solid State Drive Detected - Skipping defragmentation.
+echo     Solid State Drive Detected - Skipping defragmentation.
 echo.
 1>nul 2>nul timeout /t 5
 cls
 echo.
 echo.
-echo       First time running? This may be a few hours.
-echo    Consider other options like "24r" if you're pressed for time.
+echo     First time running? This may be a few hours.
 echo.
 echo.
-1>nul 2>nul timeout /t 6
+1>nul 2>nul timeout /t 5
 echo.
 echo.
-echo       Not the first time? This shouldn't be more than an two hours.
-echo   Consider running option "24r" if you're pressed for time.
+echo     Not the first time? This shouldn't be more than two hours.
+echo     (NOTE: Time is drastically affected if your PC is infected.)
+echo.
+echo.
+1>nul 2>nul timeout /t 5
+echo.
+echo.
+echo     Consider running option "24r" if you're pressed for time.
 echo.
 echo.
 1>nul 2>nul timeout /t 5
@@ -1554,7 +1566,6 @@ REM Start Opt# 1
 
 REM Checks for Chocolatey installation, installs if missing.
 cls
-echo.
 echo    Installing Chocolatey, please wait.
 IF EXIST %allusersprofile%\chocolatey\bin\choco.exe goto ICHOCO
 1>nul 2>nul Cscript.exe C:\WinBOLT\repo\ichoco.vbs
@@ -1706,7 +1717,7 @@ REM Ends Opt# 2.
 
 REM Start Opt# 5
 echo.
-echo Running System File Check.
+echo    Running System File Check.
 1>nul 2>nul sfc /scannow > C:\WinBOLT\Backups\Logs\live_SysFileCheck.log
 For /f "tokens=2-4 delims=/ " %%a in ('date /t') do (set mdate=%%a.%%b.%%c)
 For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mtime=%%a.%%b)
@@ -1714,12 +1725,12 @@ For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mtime=%%a.%%b)
 echo FINISHED.
 
 echo.
-echo Scheduling Disk Check on drive %systemdrive%
-1>nul 2>nul echo y|chkdsk /f /r %systemdrive%
-echo Scheduled to start after reboot. Pending.
+echo    Applying disk check on next reboot.
+1>nul 2>nul call:Dcheck
+echo FINISHED.
 
 echo.
-echo SSD detected, skipping defragmentation on %systemdrive%
+echo    SSD detected, skipping defragmentation.
 echo FINISHED.
 REM SHUTDOWN TIME 10MINS
 shutdown /r /t 600
@@ -1730,11 +1741,13 @@ cls
 echo.
 echo COMPLETED - System will reboot in 10mins to complete maintenance.
 echo.
-set /p op=Enter Y to cancel IMPORTANT reboot:
-if %op%==Y  goto CancelReboot
+set /p op=Enter Y to cancel IMPORTANT reboot.
+if %op%==Y  goto KillReboot
+if %op%==y  goto KillReboot
+
 goto menu
 
-:CancelReboot
+:KillReboot
 cls
 shutdown /a
 echo.
@@ -3055,12 +3068,11 @@ if %op%==yes goto stopreboot
 goto menu3
 
 :stopreboot
-shutdown -a
+shutdown /a
 cls
 echo.
 echo You have canceled the IMPORTANT reboot. Do it manually SOON!
 echo.
-shutdown -a
 timeout /t 6 >nul
 goto menu3
 
@@ -3507,12 +3519,11 @@ set /p op=Enter Y to cancel IMPORTANT reboot:
 if %op%==Y  goto nowblock
 goto corepackage
 :nowblock
-shutdown -a
+shutdown /a
 cls
 echo.
 echo You have canceled the IMPORTANT reboot. Do it manually SOON!
 echo.
-shutdown -a
 timeout /t 6 >nul
 goto corepackage
 
@@ -3630,6 +3641,11 @@ echo.
 echo.
 timeout /t 10 >nul
 shutdown -r -t 0 -f
+
+REM Functions needed in this script.
+:Dcheck
+echo y|chkdsk /f /r %systemdrive%
+goto:eof
 
 REM private code for Christian only
 :l2d
