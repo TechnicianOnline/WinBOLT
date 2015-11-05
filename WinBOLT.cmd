@@ -787,8 +787,10 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
-if %OS%==32BIT ccleaner.exe /auto
-if %OS%==64BIT ccleaner64.exe /auto
+if %OS%==32BIT 1>nul 2>nul ccleaner.exe /auto
+if %OS%==32BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner.exe /auto
+if %OS%==64BIT 1>nul 2>nul ccleaner64.exe /auto
+if %OS%==64BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner64.exe /auto
 echo FINISHED.
 
 
@@ -1061,8 +1063,10 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
-if %OS%==32BIT ccleaner.exe /auto
-if %OS%==64BIT ccleaner64.exe /auto
+if %OS%==32BIT 1>nul 2>nul ccleaner.exe /auto
+if %OS%==32BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner.exe /auto
+if %OS%==64BIT 1>nul 2>nul ccleaner64.exe /auto
+if %OS%==64BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner64.exe /auto
 echo FINISHED.
 
 
@@ -1189,8 +1193,10 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
-if %OS%==32BIT ccleaner.exe /auto
-if %OS%==64BIT ccleaner64.exe /auto
+if %OS%==32BIT 1>nul 2>nul ccleaner.exe /auto
+if %OS%==32BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner.exe /auto
+if %OS%==64BIT 1>nul 2>nul ccleaner64.exe /auto
+if %OS%==64BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner64.exe /auto
 echo FINISHED.
 
 
@@ -1423,10 +1429,10 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
-if %OS%==32BIT ccleaner.exe /auto
-if %OS%==32BIT C:\Program Files\CCleaner\ccleaner.exe /auto
-if %OS%==64BIT ccleaner64.exe /auto
-if %OS%==64BIT C:\Program Files\CCleaner\ccleaner64.exe /auto
+if %OS%==32BIT 1>nul 2>nul ccleaner.exe /auto
+if %OS%==32BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner.exe /auto
+if %OS%==64BIT 1>nul 2>nul ccleaner64.exe /auto
+if %OS%==64BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner64.exe /auto
 echo FINISHED.
 
 REM EEK antimalware scan.
@@ -1643,10 +1649,10 @@ echo   (App)Remote Desktop=False >> ccleaner.ini
 (echo  HideWarnings=1) >> ccleaner.ini
 (echo  AutoClose=1) >> ccleaner.ini
 (echo  BackupPrompt=0) >> ccleaner.ini
-if %OS%==32BIT ccleaner.exe /auto
-if %OS%==32BIT C:\Program Files\CCleaner\ccleaner.exe /auto
-if %OS%==64BIT ccleaner64.exe /auto
-if %OS%==64BIT C:\Program Files\CCleaner\ccleaner64.exe /auto
+if %OS%==32BIT 1>nul 2>nul ccleaner.exe /auto
+if %OS%==32BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner.exe /auto
+if %OS%==64BIT 1>nul 2>nul ccleaner64.exe /auto
+if %OS%==64BIT 1>nul 2>nul C:\Program Files\CCleaner\ccleaner64.exe /auto
 echo FINISHED.
 
 REM EEK antimalware scan.
