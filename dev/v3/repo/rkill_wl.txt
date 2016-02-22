@@ -1,0 +1,10 @@
+C:\ProgramData\chocolatey\bin\choco.exe
+C:\ProgramData\chocolatey\choco.exe
+C:\ProgramData\chocolatey\tools\7za.exe
+C:\WinBOLT\repo\hwinfo.bat
+C:\WinBOLT\repo\mbam_update.bat
+C:\WinBOLT\repo\winups.vbs
+C:\WinBOLT\repo\wink.vbs
+C:\WinBOLT\repo\rename.vbs
+C:\WinBOLT\WinBOLT.cmd
+C:\WinBOLT\WinBOLT.bat
